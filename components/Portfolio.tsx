@@ -42,7 +42,7 @@ const Portfolio: React.FC<PortfolioProps> = ({
             />
 
             {watches.length > 0 ? (
-                <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-8">
+                <div className="mt-12 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-8">
                     {watches.map(watch => (
                         <WatchCard
                             key={watch.id}
@@ -54,7 +54,7 @@ const Portfolio: React.FC<PortfolioProps> = ({
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-16">
+                <div className="mt-12 text-center py-16">
                     <p className="text-xl text-gray-500">Nenhum relógio encontrado. Tente ajustar sua busca ou filtros.</p>
                 </div>
             )}
