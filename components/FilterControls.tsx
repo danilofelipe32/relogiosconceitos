@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import type { FilterCategory } from '../types';
+import type { FilterCategory, WatchCategory } from '../types';
 import { WATCH_CATEGORIES } from '../constants';
 
 interface FilterControlsProps {
-    activeFilter: FilterCategory;
+    activeCategories: WatchCategory[];
+    isFavoritesActive: boolean;
     searchTerm: string;
     onFilterChange: (filter: FilterCategory) => void;
     onSearchChange: (term: string) => void;
 }
 
-const FilterControls: React.FC<FilterControlsProps> = ({ activeFilter, searchTerm, onFilterChange, onSearchChange }) => {
+const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFavoritesActive, searchTerm, onFilterChange, onSearchChange }) => {
     const [isFilterVisible, setIsFilterVisible] = useState(false);
     
     const filterButtons: { label: string; filter: FilterCategory }[] = [
@@ -52,19 +53,30 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeFilter, searchTer
                 
                 <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isFilterVisible ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
                     <div className="flex flex-wrap justify-center gap-2">
-                        {filterButtons.map(({ label, filter }) => (
-                            <button
-                                key={filter}
-                                onClick={() => onFilterChange(filter)}
-                                className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
-                                    activeFilter === filter 
-                                    ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20' 
-                                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-                                }`}
-                            >
-                                {label}
-                            </button>
-                        ))}
+                        {filterButtons.map(({ label, filter }) => {
+                            let isActive = false;
+                            if (filter === 'all') {
+                                isActive = activeCategories.length === 0;
+                            } else if (filter === 'favorites') {
+                                isActive = isFavoritesActive;
+                            } else {
+                                isActive = activeCategories.includes(filter as WatchCategory);
+                            }
+
+                            return (
+                                <button
+                                    key={filter}
+                                    onClick={() => onFilterChange(filter)}
+                                    className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                                        isActive 
+                                        ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20' 
+                                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+                                    }`}
+                                >
+                                    {label}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

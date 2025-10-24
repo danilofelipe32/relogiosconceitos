@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import ImageModal from './components/ImageModal';
 import Notification from './components/Notification';
 import { WATCHES } from './constants';
-import type { Watch, FilterCategory } from './types';
+import type { Watch, FilterCategory, WatchCategory } from './types';
 
 const App: React.FC = () => {
     const [watches, setWatches] = useState<Watch[]>([]);
@@ -20,7 +20,8 @@ const App: React.FC = () => {
             return [];
         }
     });
-    const [activeFilter, setActiveFilter] = useState<FilterCategory>('all');
+    const [activeCategories, setActiveCategories] = useState<WatchCategory[]>([]);
+    const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
     const [showNotification, setShowNotification] = useState(false);
@@ -44,23 +45,18 @@ const App: React.FC = () => {
         const lowercasedSearchTerm = searchTerm.toLowerCase();
 
         const filtered = watches.filter(watch => {
-            const matchesCategory =
-                activeFilter === 'all' ||
-                (activeFilter === 'favorites' && favorites.includes(watch.id)) ||
-                watch.category === activeFilter;
-            
-            if (!matchesCategory) return false;
-
-            const matchesSearch = 
+            const categoryMatch = activeCategories.length === 0 || activeCategories.includes(watch.category);
+            const favoriteMatch = !showOnlyFavorites || favorites.includes(watch.id);
+            const searchMatch = 
                 !lowercasedSearchTerm ||
                 watch.name.toLowerCase().includes(lowercasedSearchTerm) ||
                 watch.description.toLowerCase().includes(lowercasedSearchTerm);
             
-            return matchesSearch;
+            return categoryMatch && favoriteMatch && searchMatch;
         });
 
         setFilteredWatches(filtered);
-    }, [searchTerm, activeFilter, watches, favorites]);
+    }, [searchTerm, activeCategories, showOnlyFavorites, watches, favorites]);
 
 
     const toggleFavorite = useCallback((id: number) => {
@@ -76,6 +72,21 @@ const App: React.FC = () => {
             return isFavorited ? prev.filter(favId => favId !== id) : [...prev, id];
         });
     }, []);
+
+    const handleFilterChange = (filter: FilterCategory) => {
+        if (filter === 'all') {
+            setActiveCategories([]);
+        } else if (filter === 'favorites') {
+            setShowOnlyFavorites(prev => !prev);
+        } else { // It's a WatchCategory
+            setActiveCategories(prev => {
+                const newCategories = prev.includes(filter as WatchCategory)
+                    ? prev.filter(cat => cat !== filter)
+                    : [...prev, filter];
+                return newCategories;
+            });
+        }
+    };
 
     const handleShare = useCallback(async (imageUrl: string) => {
         const shareData = {
@@ -110,9 +121,10 @@ const App: React.FC = () => {
                 <Portfolio
                     watches={filteredWatches}
                     favorites={favorites}
-                    activeFilter={activeFilter}
+                    activeCategories={activeCategories}
+                    isFavoritesActive={showOnlyFavorites}
                     searchTerm={searchTerm}
-                    onFilterChange={setActiveFilter}
+                    onFilterChange={handleFilterChange}
                     onSearchChange={setSearchTerm}
                     onToggleFavorite={toggleFavorite}
                     onCardClick={setModalImageUrl}

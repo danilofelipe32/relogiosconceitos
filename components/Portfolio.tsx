@@ -1,12 +1,13 @@
 import React from 'react';
-import type { Watch, FilterCategory } from '../types';
+import type { Watch, FilterCategory, WatchCategory } from '../types';
 import WatchCard from './WatchCard';
 import FilterControls from './FilterControls';
 
 interface PortfolioProps {
     watches: Watch[];
     favorites: number[];
-    activeFilter: FilterCategory;
+    activeCategories: WatchCategory[];
+    isFavoritesActive: boolean;
     searchTerm: string;
     onFilterChange: (filter: FilterCategory) => void;
     onSearchChange: (term: string) => void;
@@ -17,7 +18,8 @@ interface PortfolioProps {
 const Portfolio: React.FC<PortfolioProps> = ({
     watches,
     favorites,
-    activeFilter,
+    activeCategories,
+    isFavoritesActive,
     searchTerm,
     onFilterChange,
     onSearchChange,
@@ -32,7 +34,8 @@ const Portfolio: React.FC<PortfolioProps> = ({
             </div>
 
             <FilterControls 
-                activeFilter={activeFilter}
+                activeCategories={activeCategories}
+                isFavoritesActive={isFavoritesActive}
                 searchTerm={searchTerm}
                 onFilterChange={onFilterChange}
                 onSearchChange={onSearchChange}
