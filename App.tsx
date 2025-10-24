@@ -27,6 +27,7 @@ const App: React.FC = () => {
     const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState('');
+    const [suggestions, setSuggestions] = useState<string[]>([]);
 
 
     useEffect(() => {
@@ -46,6 +47,19 @@ const App: React.FC = () => {
         const handler = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
         }, 300);
+
+        if (searchTerm.length > 1) {
+            const lowercasedSearchTerm = searchTerm.toLowerCase();
+            const matchingWatches = WATCHES
+                .filter(watch => watch.name.toLowerCase().includes(lowercasedSearchTerm))
+                .map(watch => watch.name);
+            
+            const uniqueNames = [...new Set(matchingWatches)];
+
+            setSuggestions(uniqueNames.slice(0, 5));
+        } else {
+            setSuggestions([]);
+        }
 
         return () => {
             clearTimeout(handler);
@@ -99,6 +113,11 @@ const App: React.FC = () => {
         }
     };
 
+    const handleSuggestionClick = useCallback((suggestion: string) => {
+        setSearchTerm(suggestion);
+        setSuggestions([]);
+    }, []);
+
     const handleShare = useCallback(async (imageUrl: string) => {
         const shareData = {
             title: 'Horologia Conceito',
@@ -135,8 +154,10 @@ const App: React.FC = () => {
                     activeCategories={activeCategories}
                     isFavoritesActive={showOnlyFavorites}
                     searchTerm={searchTerm}
+                    suggestions={suggestions}
                     onFilterChange={handleFilterChange}
                     onSearchChange={setSearchTerm}
+                    onSuggestionClick={handleSuggestionClick}
                     onToggleFavorite={toggleFavorite}
                     onCardClick={setModalImageUrl}
                 />

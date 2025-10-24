@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import type { FilterCategory, WatchCategory } from '../types';
 import { WATCH_CATEGORIES } from '../constants';
+import SearchSuggestions from './SearchSuggestions';
 
 interface FilterControlsProps {
     activeCategories: WatchCategory[];
     isFavoritesActive: boolean;
     searchTerm: string;
+    suggestions: string[];
     onFilterChange: (filter: FilterCategory) => void;
     onSearchChange: (term: string) => void;
+    onSuggestionClick: (suggestion: string) => void;
 }
 
-const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFavoritesActive, searchTerm, onFilterChange, onSearchChange }) => {
+const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFavoritesActive, searchTerm, suggestions, onFilterChange, onSearchChange, onSuggestionClick }) => {
     const [isDesktopPanelVisible, setIsDesktopPanelVisible] = useState(false);
     const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
     const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+    const [isSearchFocused, setIsSearchFocused] = useState(false);
 
     const handleCloseMobileModal = () => {
         setIsAnimatingOut(true);
@@ -102,23 +106,12 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                             placeholder="Pesquisar por nome ou descrição..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange(e.target.value)}
+                            onFocus={() => setIsSearchFocused(true)}
+                            onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
                             aria-label="Pesquisar relógios"
+                            autoComplete="off"
                         />
                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
-                            {searchTerm && (
-                                <div className="animate-fade-in">
-                                    <button
-                                        onClick={() => onSearchChange('')}
-                                        className="p-1.5 rounded-full text-gray-500 hover:text-white hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500"
-                                        aria-label="Limpar busca"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            )}
-
                             {/* Desktop Button */}
                             <div className="hidden md:block">
                                 <button
@@ -146,6 +139,14 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                                 </button>
                             </div>
                         </div>
+
+                        {isSearchFocused && suggestions.length > 0 && (
+                            <SearchSuggestions
+                                suggestions={suggestions}
+                                searchTerm={searchTerm}
+                                onSuggestionClick={onSuggestionClick}
+                            />
+                        )}
                     </div>
                     
                     <div className={`hidden md:block mt-4 transition-all duration-300 ease-out overflow-hidden ${isDesktopPanelVisible ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`} aria-hidden={!isDesktopPanelVisible}>

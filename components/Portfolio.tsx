@@ -9,8 +9,10 @@ interface PortfolioProps {
     activeCategories: WatchCategory[];
     isFavoritesActive: boolean;
     searchTerm: string;
+    suggestions: string[];
     onFilterChange: (filter: FilterCategory) => void;
     onSearchChange: (term: string) => void;
+    onSuggestionClick: (suggestion: string) => void;
     onToggleFavorite: (id: number) => void;
     onCardClick: (imageUrl: string) => void;
 }
@@ -21,8 +23,10 @@ const Portfolio: React.FC<PortfolioProps> = ({
     activeCategories,
     isFavoritesActive,
     searchTerm,
+    suggestions,
     onFilterChange,
     onSearchChange,
+    onSuggestionClick,
     onToggleFavorite,
     onCardClick
 }) => {
@@ -37,8 +41,10 @@ const Portfolio: React.FC<PortfolioProps> = ({
                 activeCategories={activeCategories}
                 isFavoritesActive={isFavoritesActive}
                 searchTerm={searchTerm}
+                suggestions={suggestions}
                 onFilterChange={onFilterChange}
                 onSearchChange={onSearchChange}
+                onSuggestionClick={onSuggestionClick}
             />
 
             {watches.length > 0 ? (
