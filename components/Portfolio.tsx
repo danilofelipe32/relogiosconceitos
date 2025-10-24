@@ -13,6 +13,8 @@ interface PortfolioProps {
     onSearchChange: (term: string) => void;
     onToggleFavorite: (id: number) => void;
     onCardClick: (imageUrl: string) => void;
+    isLoadingMore: boolean;
+    hasMore: boolean;
 }
 
 const Portfolio: React.FC<PortfolioProps> = ({
@@ -24,7 +26,9 @@ const Portfolio: React.FC<PortfolioProps> = ({
     onFilterChange,
     onSearchChange,
     onToggleFavorite,
-    onCardClick
+    onCardClick,
+    isLoadingMore,
+    hasMore
 }) => {
     return (
         <section id="portfolio" className="container mx-auto px-4 py-20 md:py-28">
@@ -58,6 +62,18 @@ const Portfolio: React.FC<PortfolioProps> = ({
                     <p className="text-xl text-gray-500">Nenhum relógio encontrado. Tente ajustar sua busca ou filtros.</p>
                 </div>
             )}
+
+            <div className="text-center pt-16 h-10">
+                {isLoadingMore && (
+                    <div className="flex justify-center items-center gap-2 text-gray-500">
+                         <div className="w-6 h-6 border-2 border-gray-600 border-t-amber-400 rounded-full animate-spin"></div>
+                         <span>Carregando mais...</span>
+                    </div>
+                )}
+                {!isLoadingMore && !hasMore && watches.length > 0 && (
+                     <p className="text-gray-600">Você chegou ao fim da coleção.</p>
+                )}
+            </div>
         </section>
     );
 };
