@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header: React.FC = () => {
     return (
-        <header className="main-header relative h-screen flex items-center justify-center text-white bg-cover bg-center bg-fixed">
+        <header className="main-header relative h-screen flex items-center justify-center text-white">
             <div className="absolute inset-0 bg-black bg-opacity-70"></div>
             <div className="z-10 text-center p-4 max-w-4xl mx-auto flex flex-col items-center">
                 <h1 className="font-serif text-5xl md:text-8xl font-bold tracking-tight text-white" style={{ textShadow: '2px 2px 12px rgba(0,0,0,0.8)' }}>Horologia Conceito</h1>
