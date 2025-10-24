@@ -14,6 +14,15 @@ interface FilterControlsProps {
 const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFavoritesActive, searchTerm, onFilterChange, onSearchChange }) => {
     const [isDesktopPanelVisible, setIsDesktopPanelVisible] = useState(false);
     const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
+    const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+
+    const handleCloseMobileModal = () => {
+        setIsAnimatingOut(true);
+        setTimeout(() => {
+            setIsMobileModalOpen(false);
+            setIsAnimatingOut(false);
+        }, 300); // Match transition duration
+    };
 
     const allFilterButtons: { label: string; filter: FilterCategory }[] = [
         { label: 'Todos', filter: 'all' },
@@ -166,19 +175,19 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
 
             {isMobileModalOpen && (
                  <div
-                    className="md:hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-40 p-4 animate-fade-in"
-                    onClick={() => setIsMobileModalOpen(false)}
+                    className={`md:hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-end justify-center z-40 transition-opacity duration-300 ${isAnimatingOut ? 'opacity-0' : 'opacity-100'}`}
+                    onClick={handleCloseMobileModal}
                     role="dialog"
                     aria-modal="true"
                 >
                     <div
-                        className="bg-gray-900 rounded-xl p-6 w-full max-w-sm border border-gray-700 shadow-2xl"
+                        className={`bg-gray-900 rounded-t-xl p-6 w-full max-w-sm border-t border-gray-700 shadow-2xl transform transition-transform duration-300 ease-out ${isAnimatingOut ? 'translate-y-full' : 'translate-y-0'}`}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h3 className="text-lg font-bold text-white text-center mb-6">Filtrar Coleção</h3>
                         {renderFilterButtons()}
                         <button
-                            onClick={() => setIsMobileModalOpen(false)}
+                            onClick={handleCloseMobileModal}
                             className="mt-6 w-full bg-amber-400 text-black font-bold py-2.5 px-4 rounded-lg transition-colors hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-300"
                         >
                             Ver Resultados
