@@ -8,9 +8,6 @@ import Notification from './components/Notification';
 import { WATCHES } from './constants';
 import type { Watch, FilterCategory, WatchCategory } from './types';
 
-const INITIAL_LOAD = 20;
-const LOAD_MORE_COUNT = 10;
-
 const App: React.FC = () => {
     const [watches, setWatches] = useState<Watch[]>([]);
     const [filteredWatches, setFilteredWatches] = useState<Watch[]>([]);
@@ -29,10 +26,7 @@ const App: React.FC = () => {
     const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState('');
-    
-    const [visibleCount, setVisibleCount] = useState(INITIAL_LOAD);
-    const [isLoadingMore, setIsLoadingMore] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
+
 
     useEffect(() => {
         // Simulating a fetch call
@@ -61,32 +55,9 @@ const App: React.FC = () => {
             return categoryMatch && favoriteMatch && searchMatch;
         });
 
-        setHasMore(filtered.length > visibleCount);
-        setFilteredWatches(filtered.slice(0, visibleCount));
+        setFilteredWatches(filtered);
+    }, [searchTerm, activeCategories, showOnlyFavorites, watches, favorites]);
 
-    }, [searchTerm, activeCategories, showOnlyFavorites, watches, favorites, visibleCount]);
-
-    useEffect(() => {
-        setVisibleCount(INITIAL_LOAD);
-    }, [searchTerm, activeCategories, showOnlyFavorites]);
-
-    const handleScroll = useCallback(() => {
-        // Prevent loading if we are already loading, or if there are no more items
-        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 300 || isLoadingMore || !hasMore) {
-            return;
-        }
-        
-        setIsLoadingMore(true);
-        setTimeout(() => {
-            setVisibleCount(prevCount => prevCount + LOAD_MORE_COUNT);
-            setIsLoadingMore(false);
-        }, 500); // Simulate network delay
-    }, [isLoadingMore, hasMore]);
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
 
     const toggleFavorite = useCallback((id: number) => {
         setFavorites(prev => {
@@ -157,8 +128,6 @@ const App: React.FC = () => {
                     onSearchChange={setSearchTerm}
                     onToggleFavorite={toggleFavorite}
                     onCardClick={setModalImageUrl}
-                    isLoadingMore={isLoadingMore}
-                    hasMore={hasMore}
                 />
                 <About />
             </main>
