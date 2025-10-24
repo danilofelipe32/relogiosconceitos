@@ -44,7 +44,7 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
     return (
         <div
             ref={cardRef}
-            className={`bg-gray-800 rounded-lg overflow-hidden shadow-lg group transition-all duration-700 ease-out flex flex-col ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            className={`bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-lg group transition-all duration-300 ease-in-out flex flex-col hover:border-amber-400/30 hover:shadow-2xl hover:shadow-amber-400/10 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
             <div className="relative">
                 <div onClick={onImageClick} className="w-full h-full aspect-square cursor-pointer overflow-hidden">
@@ -68,12 +68,12 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                     </svg>
                 </button>
             </div>
-            <div className="p-4 flex-grow flex flex-col">
-                <h3 className="text-lg font-bold text-white">{watch.name}</h3>
-                <p className="text-sm text-gray-400 mt-1">{watch.category}</p>
-                <p className="text-sm text-gray-300 mt-2 flex-grow">{watch.description}</p>
-                <div className="text-right text-xs font-mono text-gray-500 mt-4">
-                    ID: {watch.id}
+            <div className="p-5 flex-grow flex flex-col">
+                <p className="text-xs font-semibold text-amber-400 uppercase tracking-wider">{watch.category}</p>
+                <h3 className="text-xl font-bold text-white mt-1">{watch.name}</h3>
+                <p className="text-sm text-gray-400 mt-2 flex-grow leading-relaxed">{watch.description}</p>
+                <div className="text-right text-xs font-mono text-gray-600 mt-4">
+                    ID: {String(watch.id).padStart(3, '0')}
                 </div>
             </div>
         </div>

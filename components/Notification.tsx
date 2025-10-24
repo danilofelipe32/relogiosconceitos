@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface NotificationProps {
@@ -8,7 +7,7 @@ interface NotificationProps {
 
 const Notification: React.FC<NotificationProps> = ({ message, isVisible }) => {
     return (
-        <div className={`fixed bottom-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white py-2 px-4 rounded-lg z-50 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-900 text-white py-2.5 px-5 rounded-lg z-50 transition-all duration-300 border border-gray-700 shadow-lg ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             {message}
         </div>
     );

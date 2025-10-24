@@ -25,10 +25,10 @@ const Portfolio: React.FC<PortfolioProps> = ({
     onCardClick
 }) => {
     return (
-        <section id="portfolio" className="container mx-auto px-4 py-16 md:py-24">
-            <div className="text-center mb-12">
-                <h2 className="font-serif text-4xl md:text-5xl font-bold text-amber-400">Nossa Coleção Exclusiva</h2>
-                <p className="mt-4 text-lg text-gray-400">Designs que desafiam o convencional.</p>
+        <section id="portfolio" className="container mx-auto px-4 py-20 md:py-28">
+            <div className="text-center mb-16">
+                <h2 className="font-serif text-4xl md:text-5xl font-bold text-amber-400">Coleção</h2>
+                <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">Cada peça é uma obra de arte conceitual, um vislumbre do futuro da horologia.</p>
             </div>
 
             <FilterControls 
@@ -39,7 +39,7 @@ const Portfolio: React.FC<PortfolioProps> = ({
             />
 
             {watches.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-8">
                     {watches.map(watch => (
                         <WatchCard
                             key={watch.id}
