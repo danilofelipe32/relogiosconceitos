@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import type { Watch, FilterCategory } from '../types';
 import WatchCard from './WatchCard';
 import FilterControls from './FilterControls';
@@ -26,10 +25,10 @@ const Portfolio: React.FC<PortfolioProps> = ({
     onCardClick
 }) => {
     return (
-        <main id="portfolio" className="container mx-auto px-4 py-16 md:py-24">
+        <section id="portfolio" className="container mx-auto px-4 py-16 md:py-24">
             <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-yellow-400">Nossa Coleção Exclusiva</h2>
-                <p className="mt-2 text-gray-400">Designs que desafiam o convencional.</p>
+                <h2 className="font-serif text-4xl md:text-5xl font-bold text-amber-400">Nossa Coleção Exclusiva</h2>
+                <p className="mt-4 text-lg text-gray-400">Designs que desafiam o convencional.</p>
             </div>
 
             <FilterControls 
@@ -39,18 +38,24 @@ const Portfolio: React.FC<PortfolioProps> = ({
                 onSearchChange={onSearchChange}
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-                {watches.map(watch => (
-                    <WatchCard
-                        key={watch.id}
-                        watch={watch}
-                        isFavorited={favorites.includes(watch.id)}
-                        onToggleFavorite={onToggleFavorite}
-                        onImageClick={() => onCardClick(watch.imageUrl)}
-                    />
-                ))}
-            </div>
-        </main>
+            {watches.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    {watches.map(watch => (
+                        <WatchCard
+                            key={watch.id}
+                            watch={watch}
+                            isFavorited={favorites.includes(watch.id)}
+                            onToggleFavorite={onToggleFavorite}
+                            onImageClick={() => onCardClick(watch.imageUrl)}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center py-16">
+                    <p className="text-xl text-gray-500">Nenhum relógio encontrado. Tente ajustar sua busca ou filtros.</p>
+                </div>
+            )}
+        </section>
     );
 };
 

@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from './components/Header';
 import Portfolio from './components/Portfolio';
 import About from './components/About';
@@ -12,23 +11,33 @@ import type { Watch, FilterCategory } from './types';
 const App: React.FC = () => {
     const [watches, setWatches] = useState<Watch[]>([]);
     const [filteredWatches, setFilteredWatches] = useState<Watch[]>([]);
-    const [favorites, setFavorites] = useState<number[]>([]);
+    const [favorites, setFavorites] = useState<number[]>(() => {
+        try {
+            const storedFavorites = localStorage.getItem('horologiaFavorites');
+            return storedFavorites ? JSON.parse(storedFavorites) : [];
+        } catch (error) {
+            console.error('Failed to parse favorites from localStorage', error);
+            return [];
+        }
+    });
     const [activeFilter, setActiveFilter] = useState<FilterCategory>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
     const [showNotification, setShowNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState('');
+
 
     useEffect(() => {
         // Simulating a fetch call
         setWatches(WATCHES);
-        const storedFavorites = localStorage.getItem('horologiaFavorites');
-        if (storedFavorites) {
-            setFavorites(JSON.parse(storedFavorites));
-        }
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('horologiaFavorites', JSON.stringify(favorites));
+        try {
+            localStorage.setItem('horologiaFavorites', JSON.stringify(favorites));
+        } catch (error) {
+            console.error('Failed to save favorites to localStorage', error);
+        }
     }, [favorites]);
 
     useEffect(() => {
@@ -55,16 +64,24 @@ const App: React.FC = () => {
 
 
     const toggleFavorite = useCallback((id: number) => {
-        setFavorites(prev =>
-            prev.includes(id) ? prev.filter(favId => favId !== id) : [...prev, id]
-        );
+        setFavorites(prev => {
+            const isFavorited = prev.includes(id);
+            if (isFavorited) {
+                setNotificationMessage('Removido dos favoritos.');
+            } else {
+                setNotificationMessage('Adicionado aos favoritos!');
+            }
+            setShowNotification(true);
+            setTimeout(() => setShowNotification(false), 2000);
+            return isFavorited ? prev.filter(favId => favId !== id) : [...prev, id];
+        });
     }, []);
 
     const handleShare = useCallback(async (imageUrl: string) => {
         const shareData = {
             title: 'Horologia Conceito',
             text: 'Veja este incrível relógio conceito!',
-            url: imageUrl
+            url: window.location.href // Share the portfolio link instead of just the image
         };
 
         if (navigator.share) {
@@ -76,6 +93,7 @@ const App: React.FC = () => {
         } else {
             try {
                 await navigator.clipboard.writeText(imageUrl);
+                setNotificationMessage('Link da imagem copiado!');
                 setShowNotification(true);
                 setTimeout(() => setShowNotification(false), 2000);
             } catch (err) {
@@ -88,17 +106,19 @@ const App: React.FC = () => {
     return (
         <>
             <Header />
-            <Portfolio
-                watches={filteredWatches}
-                favorites={favorites}
-                activeFilter={activeFilter}
-                searchTerm={searchTerm}
-                onFilterChange={setActiveFilter}
-                onSearchChange={setSearchTerm}
-                onToggleFavorite={toggleFavorite}
-                onCardClick={setModalImageUrl}
-            />
-            <About />
+            <main>
+                <Portfolio
+                    watches={filteredWatches}
+                    favorites={favorites}
+                    activeFilter={activeFilter}
+                    searchTerm={searchTerm}
+                    onFilterChange={setActiveFilter}
+                    onSearchChange={setSearchTerm}
+                    onToggleFavorite={toggleFavorite}
+                    onCardClick={setModalImageUrl}
+                />
+                <About />
+            </main>
             <Footer />
             {modalImageUrl && (
                 <ImageModal
@@ -107,7 +127,7 @@ const App: React.FC = () => {
                     onShare={handleShare}
                 />
             )}
-            <Notification message="Link da imagem copiado!" isVisible={showNotification} />
+            <Notification message={notificationMessage} isVisible={showNotification} />
         </>
     );
 };

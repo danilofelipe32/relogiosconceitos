@@ -268,5 +268,9 @@ export const WATCHES: Watch[] = [
     { id: 268, name: "Cronosfera VIII", category: "Vanguarda", imageUrl: "https://i.imgur.com/0cCGkVj.png", description: "A esfera do tempo, em uma nova dimensão." },
     { id: 269, name: "Arcabouço VII", category: "Estruturais", imageUrl: "https://i.imgur.com/g1wpNi3.png", description: "A essência da engenharia, em sua forma mais complexa." },
     { id: 270, name: "Soberano III", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/jldtNkA.png", description: "A realeza do tempo, em uma nova era de design." },
-    { id: 271, name: "Quimera II", category: "Vanguarda", imageUrl: "https://i.imgur.com/ZZdXKop.png", description: "A fusão mítica, evoluída para o futuro." }
+    { id: 271, name: "Quimera II", category: "Vanguarda", imageUrl: "https://i.imgur.com/ZZdXKop.png", description: "A fusão mítica, evoluída para o futuro." },
+    { id: 272, name: "Singularidade XXI", category: "Vanguarda", imageUrl: "https://i.imgur.com/7YUYhTX.png", description: "A nova fronteira do design temporal, onde a complexidade encontra a clareza." },
+    { id: 273, name: "Legado XIX", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/fa9uiql.png", description: "A tradição encontra a modernidade em uma harmonia perfeita de forma e função." },
+    { id: 274, name: "Mecanismo XIV", category: "Estruturais", imageUrl: "https://i.imgur.com/W4LP1ho.png", description: "A beleza da engenharia exposta em sua forma mais crua e fascinante." },
+    { id: 275, name: "Paradoxo V", category: "Vanguarda", imageUrl: "https://i.imgur.com/nwJnFZF.png", description: "Desafiando as convenções, este relógio reescreve as regras do tempo." }
 ];
