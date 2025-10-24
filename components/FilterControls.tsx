@@ -99,14 +99,30 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                             </button>
                         </div>
                         <input
-                            className="w-full bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg py-3 pl-12 pr-28 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                            className="w-full bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg py-3 pl-12 pr-36 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
                             type="text"
                             placeholder="Pesquisar por nome ou descrição..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange(e.target.value)}
                             aria-label="Pesquisar relógios"
                         />
-                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-1">
+                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
+                            {searchTerm && (
+                                <div className="animate-fade-in">
+                                    <Tooltip text="Limpar busca">
+                                        <button
+                                            onClick={() => onSearchChange('')}
+                                            className="p-1.5 rounded-full text-gray-500 hover:text-white hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                            aria-label="Limpar busca"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </Tooltip>
+                                </div>
+                            )}
+
                             {/* Desktop Button */}
                             <div className="hidden md:block">
                                 <Tooltip text={desktopTooltipText}>
