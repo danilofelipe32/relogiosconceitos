@@ -23,6 +23,7 @@ const App: React.FC = () => {
     const [activeCategories, setActiveCategories] = useState<WatchCategory[]>([]);
     const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
     const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState('');
@@ -42,7 +43,17 @@ const App: React.FC = () => {
     }, [favorites]);
 
     useEffect(() => {
-        const lowercasedSearchTerm = searchTerm.toLowerCase();
+        const handler = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+        }, 300);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchTerm]);
+
+    useEffect(() => {
+        const lowercasedSearchTerm = debouncedSearchTerm.toLowerCase();
 
         const filtered = watches.filter(watch => {
             const categoryMatch = activeCategories.length === 0 || activeCategories.includes(watch.category);
@@ -56,7 +67,7 @@ const App: React.FC = () => {
         });
 
         setFilteredWatches(filtered);
-    }, [searchTerm, activeCategories, showOnlyFavorites, watches, favorites]);
+    }, [debouncedSearchTerm, activeCategories, showOnlyFavorites, watches, favorites]);
 
 
     const toggleFavorite = useCallback((id: number) => {
