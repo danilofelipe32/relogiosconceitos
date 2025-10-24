@@ -12,6 +12,7 @@ interface WatchCardProps {
 const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavorite, onImageClick }) => {
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
+    const [isClicked, setIsClicked] = useState(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -36,11 +37,24 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
         };
     }, []);
 
+    useEffect(() => {
+        if (isClicked) {
+            const timer = setTimeout(() => setIsClicked(false), 300);
+            return () => clearTimeout(timer);
+        }
+    }, [isClicked]);
+
     const originalUrl = watch.imageUrl;
     const extensionIndex = originalUrl.lastIndexOf('.');
     const thumbnailUrl = extensionIndex !== -1 
         ? originalUrl.substring(0, extensionIndex) + 'l' + originalUrl.substring(extensionIndex)
         : originalUrl;
+
+    const handleToggleFavorite = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setIsClicked(true);
+        onToggleFavorite(watch.id);
+    };
 
     return (
         <div
@@ -59,11 +73,8 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                 <div className="absolute top-3 right-3 z-10">
                     <Tooltip text={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}>
                         <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onToggleFavorite(watch.id);
-                            }}
-                            className="p-2 bg-black/50 rounded-full transition-transform duration-200 hover:scale-110"
+                            onClick={handleToggleFavorite}
+                            className={`p-2 bg-black/50 rounded-full transition-transform duration-300 ease-out hover:scale-110 ${isClicked ? 'scale-125' : ''}`}
                             aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                         >
                             <svg className={`w-6 h-6 transition-all duration-300 ${isFavorited ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-white'}`} viewBox="0 0 24 24" strokeWidth="1.5">
