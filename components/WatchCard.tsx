@@ -45,10 +45,10 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
     return (
         <div
             ref={cardRef}
-            className={`bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-lg group transition-all duration-300 ease-in-out flex flex-col hover:border-amber-400/30 hover:shadow-2xl hover:shadow-amber-400/10 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            className={`relative bg-gray-900 border border-gray-800 rounded-lg shadow-lg group transition-all duration-300 ease-in-out flex flex-col hover:border-amber-400/30 hover:shadow-2xl hover:shadow-amber-400/10 hover:-translate-y-2 hover:z-20 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
             <div className="relative">
-                <div onClick={onImageClick} className="w-full h-full aspect-square cursor-pointer overflow-hidden">
+                <div onClick={onImageClick} className="w-full h-full aspect-square cursor-pointer overflow-hidden rounded-t-lg">
                      <img 
                         src={thumbnailUrl} 
                         alt={watch.name} 

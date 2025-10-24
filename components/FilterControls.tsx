@@ -67,13 +67,39 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
             <div className="sticky top-4 z-30 bg-black/50 backdrop-blur-lg p-4 rounded-xl border border-gray-800">
                 <div className="max-w-4xl mx-auto">
                     <div className="relative">
-                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
+                         <div className="absolute inset-y-0 left-0 flex items-center z-10">
+                            <button
+                                onClick={() => onSearchChange('')}
+                                disabled={!searchTerm}
+                                className="p-3 text-gray-400 disabled:cursor-default enabled:hover:text-white transition-colors focus:outline-none"
+                                aria-label={searchTerm ? "Limpar busca" : "Ícone de busca"}
+                            >
+                                <div className="relative w-5 h-5" aria-hidden="true">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className={`absolute inset-0 w-full h-full transition-all duration-300 ease-in-out ${searchTerm ? 'opacity-0 scale-50 -rotate-90' : 'opacity-100 scale-100 rotate-0'}`}
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className={`absolute inset-0 w-full h-full transition-all duration-300 ease-in-out ${searchTerm ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 rotate-90'}`}
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </div>
+                            </button>
                         </div>
                         <input
-                            className="w-full bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg py-3 pl-10 pr-28 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                            className="w-full bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg py-3 pl-12 pr-28 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
                             type="text"
                             placeholder="Pesquisar por nome ou descrição..."
                             value={searchTerm}
@@ -81,18 +107,6 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                             aria-label="Pesquisar relógios"
                         />
                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-1">
-                            {searchTerm && (
-                                <button
-                                    onClick={() => onSearchChange('')}
-                                    className="p-1 text-gray-400 hover:text-white rounded-full transition-colors"
-                                    aria-label="Limpar busca"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            )}
-
                             {/* Desktop Button */}
                             <div className="hidden md:block">
                                 <Tooltip text={desktopTooltipText}>
