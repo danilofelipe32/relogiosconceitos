@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { FilterCategory, WatchCategory } from '../types';
 import { WATCH_CATEGORIES } from '../constants';
+import Tooltip from './Tooltip';
 
 interface FilterControlsProps {
     activeCategories: WatchCategory[];
@@ -38,16 +39,18 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                         aria-label="Pesquisar relógios"
                     />
                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                        <button
-                            onClick={() => setIsFilterVisible(!isFilterVisible)}
-                            className={`p-1 rounded-md transition-colors ${isFilterVisible ? 'text-amber-400' : 'text-gray-400 hover:text-white'} focus:outline-none focus:ring-2 focus:ring-amber-500`}
-                            aria-label={isFilterVisible ? "Ocultar filtros" : "Mostrar filtros"}
-                            aria-expanded={isFilterVisible}
-                        >
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                           </svg>
-                        </button>
+                        <Tooltip text={isFilterVisible ? "Ocultar filtros" : "Mostrar filtros"}>
+                            <button
+                                onClick={() => setIsFilterVisible(!isFilterVisible)}
+                                className={`p-1 rounded-md transition-colors ${isFilterVisible ? 'text-amber-400' : 'text-gray-400 hover:text-white'} focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                aria-label={isFilterVisible ? "Ocultar filtros" : "Mostrar filtros"}
+                                aria-expanded={isFilterVisible}
+                            >
+                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+                               </svg>
+                            </button>
+                        </Tooltip>
                     </div>
                 </div>
                 
@@ -63,18 +66,28 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                                 isActive = activeCategories.includes(filter as WatchCategory);
                             }
 
+                            let tooltipText = '';
+                            if (filter === 'all') {
+                                tooltipText = 'Limpar filtros de categoria';
+                            } else if (filter === 'favorites') {
+                                tooltipText = isFavoritesActive ? 'Desativar filtro de favoritos' : 'Mostrar apenas favoritos';
+                            } else {
+                                tooltipText = `Filtrar por: ${label}`;
+                            }
+
                             return (
-                                <button
-                                    key={filter}
-                                    onClick={() => onFilterChange(filter)}
-                                    className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
-                                        isActive 
-                                        ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20' 
-                                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-                                    }`}
-                                >
-                                    {label}
-                                </button>
+                                <Tooltip key={filter} text={tooltipText}>
+                                    <button
+                                        onClick={() => onFilterChange(filter)}
+                                        className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                                            isActive 
+                                            ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20' 
+                                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+                                        }`}
+                                    >
+                                        {label}
+                                    </button>
+                                </Tooltip>
                             );
                         })}
                     </div>
