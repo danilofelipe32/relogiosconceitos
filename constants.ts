@@ -272,5 +272,15 @@ export const WATCHES: Watch[] = [
     { id: 272, name: "Singularidade XXI", category: "Vanguarda", imageUrl: "https://i.imgur.com/7YUYhTX.png", description: "A nova fronteira do design temporal, onde a complexidade encontra a clareza." },
     { id: 273, name: "Legado XIX", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/fa9uiql.png", description: "A tradição encontra a modernidade em uma harmonia perfeita de forma e função." },
     { id: 274, name: "Mecanismo XIV", category: "Estruturais", imageUrl: "https://i.imgur.com/W4LP1ho.png", description: "A beleza da engenharia exposta em sua forma mais crua e fascinante." },
-    { id: 275, name: "Paradoxo V", category: "Vanguarda", imageUrl: "https://i.imgur.com/nwJnFZF.png", description: "Desafiando as convenções, este relógio reescreve as regras do tempo." }
+    { id: 275, name: "Paradoxo V", category: "Vanguarda", imageUrl: "https://i.imgur.com/nwJnFZF.png", description: "Desafiando as convenções, este relógio reescreve as regras do tempo." },
+    { id: 276, name: "Noctua", category: "Vanguarda", imageUrl: "https://i.imgur.com/EdRjaHj.png", description: "A escuridão revela a verdadeira face do tempo." },
+    { id: 277, name: "Legado XX", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/z61Ckhk.png", description: "Onde a tradição encontra a transparência do futuro." },
+    { id: 278, name: "Sinfonia Mecânica", category: "Estruturais", imageUrl: "https://i.imgur.com/tXWT94r.png", description: "Cada componente, uma nota na orquestra do tempo." },
+    { id: 279, name: "Singularidade XXII", category: "Vanguarda", imageUrl: "https://i.imgur.com/vT8whXo.png", description: "Quebrando as barreiras da forma e do tempo." },
+    { id: 280, name: "Embaixador", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/6uP22RY.png", description: "A diplomacia da elegância em cada segundo." },
+    { id: 281, name: "Arcabouço VIII", category: "Estruturais", imageUrl: "https://i.imgur.com/IZuSiFZ.png", description: "A beleza da engenharia, despojada ao essencial." },
+    { id: 282, name: "Horizonte II", category: "Vanguarda", imageUrl: "https://i.imgur.com/Xq8J86U.png", description: "Expandindo os limites do que é possível em um pulso." },
+    { id: 283, name: "Consulado", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/QwL94n6.png", description: "A autoridade do design atemporal, com um toque de complexidade." },
+    { id: 284, name: "Mecanismo XV", category: "Estruturais", imageUrl: "https://i.imgur.com/Mt9nH4t.png", description: "A alma da máquina, em sua forma mais intrincada." },
+    { id: 285, name: "Ecos Temporais", category: "Vanguarda", imageUrl: "https://i.imgur.com/sN7SWxH.png", description: "O futuro sussurra em ecos de luz e sombra." }
 ];
