@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { Watch } from '../types';
-import Tooltip from './Tooltip';
 
 interface WatchCardProps {
     watch: Watch;
@@ -110,17 +109,15 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                             </div>
                         )}
                     </div>
-                    <Tooltip text={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}>
-                        <button
-                            onClick={handleToggleFavorite}
-                            className={`p-2 bg-black/50 rounded-full transition-transform duration-300 ease-out hover:scale-110 ${isClicked ? 'scale-125' : ''}`}
-                            aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-                        >
-                            <svg className={`w-6 h-6 transition-all duration-300 ${isFavorited ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-white'}`} viewBox="0 0 24 24" strokeWidth="1.5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg>
-                        </button>
-                    </Tooltip>
+                    <button
+                        onClick={handleToggleFavorite}
+                        className={`p-2 bg-black/50 rounded-full transition-transform duration-300 ease-out hover:scale-110 ${isClicked ? 'scale-125' : ''}`}
+                        aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                    >
+                        <svg className={`w-6 h-6 transition-all duration-300 ${isFavorited ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-white'}`} viewBox="0 0 24 24" strokeWidth="1.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
             <div className="p-5 flex-grow flex flex-col">

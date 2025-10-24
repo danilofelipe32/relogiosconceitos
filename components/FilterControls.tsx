@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import type { FilterCategory, WatchCategory } from '../types';
 import { WATCH_CATEGORIES } from '../constants';
-import Tooltip from './Tooltip';
 
 interface FilterControlsProps {
     activeCategories: WatchCategory[];
@@ -42,13 +41,9 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                     isActive = activeCategories.includes(filter as WatchCategory);
                 }
 
-                let tooltipText = '';
-                if (filter === 'all') tooltipText = 'Mostrar todos os itens';
-                else if (filter === 'favorites') tooltipText = isFavoritesActive ? 'Desativar filtro de favoritos' : 'Mostrar apenas favoritos';
-                else tooltipText = `Filtrar por: ${label}`;
-
-                const buttonElement = (
+                return (
                     <button
+                        key={filter}
                         onClick={() => onFilterChange(filter)}
                         className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
                             isActive 
@@ -59,17 +54,11 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                         {label}
                     </button>
                 );
-
-                return (
-                    <Tooltip key={filter} text={tooltipText}>
-                        {buttonElement}
-                    </Tooltip>
-                );
             })}
         </div>
     );
 
-    const desktopTooltipText = isDesktopPanelVisible ? "Ocultar filtros" : "Mostrar filtros";
+    const desktopAriaLabel = isDesktopPanelVisible ? "Ocultar filtros" : "Mostrar filtros";
 
     return (
         <>
@@ -118,49 +107,43 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
                             {searchTerm && (
                                 <div className="animate-fade-in">
-                                    <Tooltip text="Limpar busca">
-                                        <button
-                                            onClick={() => onSearchChange('')}
-                                            className="p-1.5 rounded-full text-gray-500 hover:text-white hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500"
-                                            aria-label="Limpar busca"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </button>
-                                    </Tooltip>
+                                    <button
+                                        onClick={() => onSearchChange('')}
+                                        className="p-1.5 rounded-full text-gray-500 hover:text-white hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                        aria-label="Limpar busca"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
                                 </div>
                             )}
 
                             {/* Desktop Button */}
                             <div className="hidden md:block">
-                                <Tooltip text={desktopTooltipText}>
-                                    <button
-                                        onClick={() => setIsDesktopPanelVisible(prev => !prev)}
-                                        className={`p-1 rounded-md transition-colors ${isDesktopPanelVisible ? 'text-amber-400 bg-amber-400/10' : 'text-gray-400'} hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
-                                        aria-label={desktopTooltipText}
-                                        aria-expanded={isDesktopPanelVisible}
-                                    >
-                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                                       </svg>
-                                    </button>
-                                </Tooltip>
+                                <button
+                                    onClick={() => setIsDesktopPanelVisible(prev => !prev)}
+                                    className={`p-1 rounded-md transition-colors ${isDesktopPanelVisible ? 'text-amber-400 bg-amber-400/10' : 'text-gray-400'} hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                    aria-label={desktopAriaLabel}
+                                    aria-expanded={isDesktopPanelVisible}
+                                >
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+                                   </svg>
+                                </button>
                             </div>
 
                              {/* Mobile Button */}
                             <div className="md:hidden">
-                                <Tooltip text="Mostrar filtros">
-                                    <button
-                                        onClick={() => setIsMobileModalOpen(true)}
-                                        className={`p-1 rounded-md transition-colors text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
-                                        aria-label="Mostrar filtros"
-                                    >
-                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                                       </svg>
-                                    </button>
-                                </Tooltip>
+                                <button
+                                    onClick={() => setIsMobileModalOpen(true)}
+                                    className={`p-1 rounded-md transition-colors text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                    aria-label="Mostrar filtros"
+                                >
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+                                   </svg>
+                                </button>
                             </div>
                         </div>
                     </div>
