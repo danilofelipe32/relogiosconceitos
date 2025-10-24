@@ -38,6 +38,14 @@
             from { opacity: 0; transform: scale(0.98); }
             to { opacity: 1; transform: scale(1); }
         }
+        @keyframes favorite-feedback {
+            0% { transform: scale(0.5) translateY(0); opacity: 0; }
+            50% { transform: scale(1.2) translateY(-15px); opacity: 1; }
+            100% { transform: scale(1) translateY(-40px); opacity: 0; }
+        }
+        .animate-favorite-feedback {
+            animation: favorite-feedback 1s ease-out forwards;
+        }
         /* Custom scrollbar for a more modern look */
         ::-webkit-scrollbar {
             width: 6px;

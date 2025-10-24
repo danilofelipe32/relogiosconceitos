@@ -12,6 +12,8 @@ interface WatchCardProps {
 const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavorite, onImageClick }) => {
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
+    const [feedback, setFeedback] = useState<'add' | 'remove' | null>(null);
+    const feedbackTimer = useRef<number>();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -28,13 +30,34 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
             observer.observe(cardRef.current);
         }
 
+        const currentCardRef = cardRef.current;
         return () => {
-            if (cardRef.current) {
+            if (currentCardRef) {
                 // eslint-disable-next-line react-hooks/exhaustive-deps
-                observer.unobserve(cardRef.current);
+                observer.unobserve(currentCardRef);
+            }
+            // Clear timeout on unmount
+            if (feedbackTimer.current) {
+                clearTimeout(feedbackTimer.current);
             }
         };
     }, []);
+
+    const handleFavoriteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        
+        if (feedbackTimer.current) {
+            clearTimeout(feedbackTimer.current);
+        }
+
+        setFeedback(isFavorited ? 'remove' : 'add');
+        onToggleFavorite(watch.id);
+
+        feedbackTimer.current = window.setTimeout(() => {
+            setFeedback(null);
+        }, 1000);
+    };
+
 
     const originalUrl = watch.imageUrl;
     const extensionIndex = originalUrl.lastIndexOf('.');
@@ -59,10 +82,7 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                 <div className="absolute top-3 right-3 z-10">
                     <Tooltip text={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}>
                         <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onToggleFavorite(watch.id);
-                            }}
+                            onClick={handleFavoriteClick}
                             className="p-2 bg-black/50 rounded-full transition-transform duration-200 hover:scale-110"
                             aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                         >
@@ -71,6 +91,20 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                             </svg>
                         </button>
                     </Tooltip>
+                    {feedback && (
+                        <div
+                            key={Date.now()}
+                            className="absolute inset-0 flex items-center justify-center pointer-events-none animate-favorite-feedback"
+                        >
+                            {feedback === 'add' ? (
+                                <svg className="w-8 h-8 stroke-red-500 fill-red-500" viewBox="0 0 24 24">
+                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                            ) : (
+                                <span className="text-3xl font-bold text-gray-400">-</span>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="p-5 flex-grow flex flex-col">
