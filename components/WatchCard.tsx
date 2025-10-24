@@ -13,6 +13,9 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
     const [isClicked, setIsClicked] = useState(false);
+    const [feedbackIcon, setFeedbackIcon] = useState<'added' | 'removed' | null>(null);
+    const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -44,6 +47,20 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
         }
     }, [isClicked]);
 
+    useEffect(() => {
+        if (feedbackIcon) {
+            feedbackTimerRef.current = setTimeout(() => {
+                setFeedbackIcon(null);
+            }, 1000); // 1 second visibility
+        }
+        
+        return () => {
+            if (feedbackTimerRef.current) {
+                clearTimeout(feedbackTimerRef.current);
+            }
+        };
+    }, [feedbackIcon]);
+
     const originalUrl = watch.imageUrl;
     const extensionIndex = originalUrl.lastIndexOf('.');
     const thumbnailUrl = extensionIndex !== -1 
@@ -53,6 +70,12 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.stopPropagation();
         setIsClicked(true);
+        
+        if (feedbackTimerRef.current) {
+            clearTimeout(feedbackTimerRef.current);
+        }
+        
+        setFeedbackIcon(isFavorited ? 'removed' : 'added');
         onToggleFavorite(watch.id);
     };
 
@@ -71,6 +94,22 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                      />
                 </div>
                 <div className="absolute top-3 right-3 z-10">
+                    <div className={`absolute top-0 right-0 pointer-events-none transition-all duration-500 ease-out transform ${feedbackIcon ? 'opacity-100 scale-100 -translate-y-full' : 'opacity-0 scale-50 -translate-y-1/2'}`}>
+                        {feedbackIcon === 'added' && (
+                            <div className="p-1.5 bg-green-500/90 backdrop-blur-sm rounded-full shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                        )}
+                        {feedbackIcon === 'removed' && (
+                            <div className="p-1.5 bg-red-500/90 backdrop-blur-sm rounded-full shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M20 12H4" />
+                                </svg>
+                            </div>
+                        )}
+                    </div>
                     <Tooltip text={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}>
                         <button
                             onClick={handleToggleFavorite}
