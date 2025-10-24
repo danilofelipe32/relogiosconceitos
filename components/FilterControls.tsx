@@ -156,11 +156,11 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                         </div>
                     </div>
                     
-                    {isDesktopPanelVisible && (
-                        <div className="hidden md:block mt-4 animate-fade-in">
+                    <div className={`hidden md:block mt-4 transition-all duration-300 ease-out overflow-hidden ${isDesktopPanelVisible ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`} aria-hidden={!isDesktopPanelVisible}>
+                        <div className="pt-2">
                             {renderFilterButtons()}
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
 
