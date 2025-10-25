@@ -16,15 +16,10 @@ interface FilterControlsProps {
 const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFavoritesActive, searchTerm, suggestions, onFilterChange, onSearchChange, onSuggestionClick }) => {
     const [isDesktopPanelVisible, setIsDesktopPanelVisible] = useState(false);
     const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
-    const [isAnimatingOut, setIsAnimatingOut] = useState(false);
     const [isSearchFocused, setIsSearchFocused] = useState(false);
 
     const handleCloseMobileModal = () => {
-        setIsAnimatingOut(true);
-        setTimeout(() => {
-            setIsMobileModalOpen(false);
-            setIsAnimatingOut(false);
-        }, 300); // Match transition duration
+        setIsMobileModalOpen(false);
     };
 
     const allFilterButtons: { label: string; filter: FilterCategory }[] = [
@@ -157,28 +152,28 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                 </div>
             </div>
 
-            {isMobileModalOpen && (
-                 <div
-                    className={`md:hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-end justify-center z-40 transition-opacity duration-300 ${isAnimatingOut ? 'opacity-0' : 'opacity-100'}`}
-                    onClick={handleCloseMobileModal}
-                    role="dialog"
-                    aria-modal="true"
+            {/* Mobile Filter Modal */}
+            <div
+                className={`md:hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-end justify-center z-40 transition-opacity duration-300 ${isMobileModalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                onClick={handleCloseMobileModal}
+                role="dialog"
+                aria-modal="true"
+                aria-hidden={!isMobileModalOpen}
+            >
+                <div
+                    className={`bg-gray-900 rounded-t-xl p-6 w-full max-w-sm border-t border-gray-700 shadow-2xl transform transition-transform duration-300 ease-out ${isMobileModalOpen ? 'translate-y-0' : 'translate-y-full'}`}
+                    onClick={(e) => e.stopPropagation()}
                 >
-                    <div
-                        className={`bg-gray-900 rounded-t-xl p-6 w-full max-w-sm border-t border-gray-700 shadow-2xl transform transition-transform duration-300 ease-out ${isAnimatingOut ? 'translate-y-full' : 'translate-y-0'}`}
-                        onClick={(e) => e.stopPropagation()}
+                    <h3 className="text-lg font-bold text-white text-center mb-6">Filtrar Coleção</h3>
+                    {renderFilterButtons()}
+                    <button
+                        onClick={handleCloseMobileModal}
+                        className="mt-6 w-full bg-amber-400 text-black font-bold py-2.5 px-4 rounded-lg transition-colors hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-300"
                     >
-                        <h3 className="text-lg font-bold text-white text-center mb-6">Filtrar Coleção</h3>
-                        {renderFilterButtons()}
-                        <button
-                            onClick={handleCloseMobileModal}
-                            className="mt-6 w-full bg-amber-400 text-black font-bold py-2.5 px-4 rounded-lg transition-colors hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-300"
-                        >
-                            Ver Resultados
-                        </button>
-                    </div>
+                        Ver Resultados
+                    </button>
                 </div>
-            )}
+            </div>
         </>
     );
 };
