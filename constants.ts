@@ -293,5 +293,16 @@ export const WATCHES: Watch[] = [
     { id: 293, name: "Soberano IV", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/cgUB0UP.png", description: "A majestade do design clássico, com a alma do mecanismo orgulhosamente exposta." },
     { id: 294, name: "Ocular II", category: "Vanguarda", imageUrl: "https://i.imgur.com/BvVpe73.png", description: "O olho que tudo vê do tempo, observando o futuro a cada tique-taque." },
     { id: 295, name: "Cidadela III", category: "Estruturais", imageUrl: "https://i.imgur.com/D2obpuy.png", description: "Uma fortaleza de precisão, com cada detalhe construído para resistir à prova do tempo." },
-    { id: 296, name: "Legado XXII", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/Y36wn6v.png", description: "A pureza do legado, onde a tradição se abre para revelar sua beleza interior." }
+    { id: 296, name: "Legado XXII", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/Y36wn6v.png", description: "A pureza do legado, onde a tradição se abre para revelar sua beleza interior." },
+    { id: 297, name: "Cronomorfo", category: "Vanguarda", imageUrl: "https://i.imgur.com/ppmPM0P.png", description: "O tempo se dobra e se molda a uma nova forma de percepção." },
+    { id: 298, name: "Legado XXIII", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/9qTVX0E.png", description: "A alma do tempo clássico, revelada em sua totalidade." },
+    { id: 299, name: "Arcabouço IX", category: "Estruturais", imageUrl: "https://i.imgur.com/07npiAz.png", description: "A arquitetura do tempo, reduzida à sua mais pura e essencial estrutura." },
+    { id: 300, name: "Quasar II", category: "Vanguarda", imageUrl: "https://i.imgur.com/8U2cFou.png", description: "Uma explosão de energia cósmica que redefine a leitura do tempo." },
+    { id: 301, name: "Virtuoso XI", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/eBjm7hk.png", description: "A virtuosidade da alta relojoaria, despida de segredos." },
+    { id: 302, name: "Mecanismo XVII", category: "Estruturais", imageUrl: "https://i.imgur.com/1tTJIRp.png", description: "A beleza bruta da engenharia, onde cada movimento é uma obra de arte." },
+    { id: 303, name: "Paradigma II", category: "Vanguarda", imageUrl: "https://i.imgur.com/pakalcp.png", description: "Quebrando os moldes da tradição para criar um novo padrão de tempo." },
+    { id: 304, name: "Soberano V", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/3936xaJ.png", description: "A majestade do tempo clássico com o coração aberto para o futuro." },
+    { id: 305, name: "Estratos Temporais", category: "Estruturais", imageUrl: "https://i.imgur.com/u6jOKYO.png", description: "As camadas do tempo, sobrepostas em uma arquitetura complexa." },
+    { id: 306, name: "Biomorfose", category: "Vanguarda", imageUrl: "https://i.imgur.com/dLUTNt7.png", description: "O tempo como uma entidade orgânica, evoluindo a cada segundo." },
+    { id: 307, name: "Legado XXIV", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/LH1FSnx.png", description: "A harmonia perfeita entre a tradição atemporal e a complexidade moderna." }
 ];
