@@ -8,12 +8,19 @@ interface WatchCardProps {
     onImageClick: () => void;
 }
 
+const MAGNIFIER_SIZE = 150;
+const ZOOM_LEVEL = 2.5;
+
 const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavorite, onImageClick }) => {
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
     const [isClicked, setIsClicked] = useState(false);
     const [feedbackIcon, setFeedbackIcon] = useState<'added' | 'removed' | null>(null);
     const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Magnifier state
+    const [showMagnifier, setShowMagnifier] = useState(false);
+    const [magnifierStyle, setMagnifierStyle] = useState<React.CSSProperties>({});
 
 
     useEffect(() => {
@@ -78,19 +85,60 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
         onToggleFavorite(watch.id);
     };
 
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const target = e.currentTarget;
+        const rect = target.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Hide magnifier if cursor is outside image bounds
+        if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+            setShowMagnifier(false);
+            return;
+        }
+
+        const bgPosX = -(x * ZOOM_LEVEL - MAGNIFIER_SIZE / 2);
+        const bgPosY = -(y * ZOOM_LEVEL - MAGNIFIER_SIZE / 2);
+
+        setMagnifierStyle({
+            backgroundPosition: `${bgPosX}px ${bgPosY}px`,
+            top: `${y - MAGNIFIER_SIZE / 2}px`,
+            left: `${x - MAGNIFIER_SIZE / 2}px`,
+            backgroundImage: `url(${watch.imageUrl})`,
+            backgroundSize: `${rect.width * ZOOM_LEVEL}px ${rect.height * ZOOM_LEVEL}px`,
+            width: `${MAGNIFIER_SIZE}px`,
+            height: `${MAGNIFIER_SIZE}px`,
+        });
+    };
+
     return (
         <div
             ref={cardRef}
             className={`relative bg-gray-900 border border-gray-800 rounded-lg shadow-lg group transition-all duration-300 ease-in-out flex flex-col hover:border-amber-400/30 hover:shadow-2xl hover:shadow-amber-400/10 hover:-translate-y-2 hover:z-20 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
             <div className="relative">
-                <div onClick={onImageClick} className="w-full h-full aspect-square cursor-pointer overflow-hidden rounded-t-lg">
+                <div 
+                    onClick={onImageClick} 
+                    onMouseEnter={() => setShowMagnifier(true)}
+                    onMouseLeave={() => setShowMagnifier(false)}
+                    onMouseMove={handleMouseMove}
+                    className="w-full h-full aspect-square cursor-none overflow-hidden rounded-t-lg" // Changed cursor to none
+                    aria-label={`Ver detalhes de ${watch.name}`}
+                    role="button"
+                >
                      <img 
                         src={thumbnailUrl} 
                         alt={watch.name} 
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
                         loading="lazy" 
                      />
+                    {showMagnifier && (
+                        <div
+                            style={magnifierStyle}
+                            className="absolute pointer-events-none rounded-full border-2 border-amber-400 bg-no-repeat shadow-2xl backdrop-invert-[5%]"
+                            aria-hidden="true"
+                        />
+                    )}
                 </div>
                 <div className="absolute top-3 right-3 z-10">
                     <div className={`absolute top-0 right-0 pointer-events-none transition-all duration-500 ease-out transform ${feedbackIcon ? 'opacity-100 scale-100 -translate-y-full' : 'opacity-0 scale-50 -translate-y-1/2'}`}>
