@@ -5,6 +5,7 @@ import About from './components/About';
 import Footer from './components/Footer';
 import ImageModal from './components/ImageModal';
 import Notification from './components/Notification';
+import BackToTopButton from './components/BackToTopButton';
 import { WATCHES } from './constants';
 import type { Watch, FilterCategory, WatchCategory } from './types';
 
@@ -172,6 +173,7 @@ const App: React.FC = () => {
                 />
             )}
             <Notification message={notificationMessage} isVisible={showNotification} />
+            <BackToTopButton />
         </>
     );
 };
