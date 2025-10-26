@@ -133,13 +133,11 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
                         loading="lazy" 
                      />
-                    {showMagnifier && (
-                        <div
-                            style={magnifierStyle}
-                            className="absolute pointer-events-none rounded-full border-2 border-amber-400 bg-no-repeat shadow-2xl backdrop-invert-[5%]"
-                            aria-hidden="true"
-                        />
-                    )}
+                    <div
+                        style={magnifierStyle}
+                        className={`absolute pointer-events-none rounded-full border-2 border-amber-400 bg-no-repeat shadow-2xl backdrop-invert-[5%] transition-all duration-200 ease-out ${showMagnifier ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
+                        aria-hidden="true"
+                    />
                 </div>
                 <div className="absolute top-3 right-3 z-10">
                     <div className={`absolute top-0 right-0 pointer-events-none transition-all duration-500 ease-out transform ${feedbackIcon ? 'opacity-100 scale-100 -translate-y-full' : 'opacity-0 scale-50 -translate-y-1/2'}`}>
@@ -201,14 +199,12 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                     <div className="text-xs font-mono text-gray-600">
                         ID: {String(watch.id).padStart(3, '0')}
                     </div>
-                    {hasDetails && (
-                        <div className="flex items-center text-xs text-amber-500/70" aria-hidden="true">
-                            <span className="mr-1">Detalhes</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    )}
+                    <div className={`flex items-center text-xs ${hasDetails ? 'text-amber-500/70' : 'text-gray-600'}`} aria-hidden="true">
+                        <span className="mr-1">Detalhes</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
