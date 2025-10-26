@@ -5,6 +5,9 @@ export interface Watch {
   category: WatchCategory;
   imageUrl: string;
   description: string;
+  material?: string;
+  dimensions?: string;
+  movement?: string;
 }
 
 export type WatchCategory = "Vanguarda" | "Clássicos Reinventados" | "Estruturais";

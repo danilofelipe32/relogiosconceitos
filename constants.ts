@@ -3,11 +3,11 @@ import type { Watch, WatchCategory } from './types';
 export const WATCH_CATEGORIES: WatchCategory[] = ["Vanguarda", "Clássicos Reinventados", "Estruturais"];
 
 export const WATCHES: Watch[] = [
-    { id: 1, name: "Ocular", category: "Vanguarda", imageUrl: "https://i.imgur.com/Fwqp0pG.png", description: "Uma janela para a alma do tempo." },
-    { id: 2, name: "Singularidade", category: "Vanguarda", imageUrl: "https://i.imgur.com/jkTHOo7.png", description: "Onde o tempo colapsa e renasce." },
-    { id: 3, name: "Axioma", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/dDIbN6J.png", description: "A verdade fundamental da elegância." },
-    { id: 4, name: "Órbita", category: "Vanguarda", imageUrl: "https://i.imgur.com/Z4c5fWV.png", description: "Movimento perpétuo em seu pulso." },
-    { id: 5, name: "Nexus", category: "Estruturais", imageUrl: "https://i.imgur.com/2dB8NiY.png", description: "A conexão entre forma e função." },
+    { id: 1, name: "Ocular", category: "Vanguarda", imageUrl: "https://i.imgur.com/Fwqp0pG.png", description: "Uma janela para a alma do tempo.", material: "Titânio e Cristal de Safira", dimensions: "42mm x 11mm", movement: "Automático Conceitual H-1" },
+    { id: 2, name: "Singularidade", category: "Vanguarda", imageUrl: "https://i.imgur.com/jkTHOo7.png", description: "Onde o tempo colapsa e renasce.", material: "Cerâmica Preta e Aço DLC", dimensions: "44mm x 13mm", movement: "Cronógrafo Quântico S-2" },
+    { id: 3, name: "Axioma", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/dDIbN6J.png", description: "A verdade fundamental da elegância.", material: "Ouro Rosa 18k e Couro de Aligátor", dimensions: "40mm x 9mm", movement: "Calibre Clássico A-3" },
+    { id: 4, name: "Órbita", category: "Vanguarda", imageUrl: "https://i.imgur.com/Z4c5fWV.png", description: "Movimento perpétuo em seu pulso.", material: "Aço Inoxidável 316L", dimensions: "43mm x 12.5mm", movement: "Movimento Orbital Perpétuo O-4" },
+    { id: 5, name: "Nexus", category: "Estruturais", imageUrl: "https://i.imgur.com/2dB8NiY.png", description: "A conexão entre forma e função.", material: "Fibra de Carbono e Titânio", dimensions: "45mm x 14mm", movement: "Esqueleto Estrutural N-5" },
     { id: 6, name: "Crono-Geometria", category: "Estruturais", imageUrl: "https://i.imgur.com/7DODHrU.png", description: "As formas do tempo, reveladas." },
     { id: 7, name: "Paradoxo", category: "Vanguarda", imageUrl: "https://i.imgur.com/opzy5pF.png", description: "Contradição que define a perfeição." },
     { id: 8, name: "Legado", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/s0iIfAP.png", description: "O passado, redesenhado para o futuro." },

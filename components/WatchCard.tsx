@@ -17,11 +17,13 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
     const [isClicked, setIsClicked] = useState(false);
     const [feedbackIcon, setFeedbackIcon] = useState<'added' | 'removed' | null>(null);
     const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     // Magnifier state
     const [showMagnifier, setShowMagnifier] = useState(false);
     const [magnifierStyle, setMagnifierStyle] = useState<React.CSSProperties>({});
 
+    const hasDetails = watch.material || watch.dimensions || watch.movement;
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -91,7 +93,6 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        // Hide magnifier if cursor is outside image bounds
         if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
             setShowMagnifier(false);
             return;
@@ -122,7 +123,7 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                     onMouseEnter={() => setShowMagnifier(true)}
                     onMouseLeave={() => setShowMagnifier(false)}
                     onMouseMove={handleMouseMove}
-                    className="w-full h-full aspect-square cursor-none overflow-hidden rounded-t-lg" // Changed cursor to none
+                    className="w-full h-full aspect-square cursor-none overflow-hidden rounded-t-lg"
                     aria-label={`Ver detalhes de ${watch.name}`}
                     role="button"
                 >
@@ -168,12 +169,46 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                     </button>
                 </div>
             </div>
-            <div className="p-5 flex-grow flex flex-col">
+            <div
+                className={`p-5 flex-grow flex flex-col ${hasDetails ? 'cursor-pointer' : ''}`}
+                onClick={() => hasDetails && setIsExpanded(prev => !prev)}
+                onKeyDown={(e) => {
+                  if (hasDetails && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault();
+                    setIsExpanded(prev => !prev);
+                  }
+                }}
+                role={hasDetails ? 'button' : undefined}
+                tabIndex={hasDetails ? 0 : -1}
+                aria-expanded={isExpanded}
+            >
                 <p className="text-xs font-semibold text-amber-400 uppercase tracking-wider">{watch.category}</p>
                 <h3 className="text-xl font-bold text-white mt-1">{watch.name}</h3>
                 <p className="text-sm text-gray-400 mt-2 flex-grow leading-relaxed">{watch.description}</p>
-                <div className="text-right text-xs font-mono text-gray-600 mt-4">
-                    ID: {String(watch.id).padStart(3, '0')}
+                
+                <div className={`transition-all duration-500 ease-in-out grid ${isExpanded ? 'grid-rows-[1fr] opacity-100 pt-4 mt-4 border-t border-gray-800' : 'grid-rows-[0fr] opacity-0'}`}>
+                    <div className="overflow-hidden">
+                        <h4 className="text-sm font-bold text-gray-300 mb-2">Detalhes Técnicos:</h4>
+                        <ul className="space-y-1 text-xs text-gray-500">
+                            {watch.material && <li><strong>Material:</strong> {watch.material}</li>}
+                            {watch.dimensions && <li><strong>Dimensões:</strong> {watch.dimensions}</li>}
+                            {watch.movement && <li><strong>Movimento:</strong> {watch.movement}</li>}
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="flex justify-between items-center mt-4">
+                    <div className="text-xs font-mono text-gray-600">
+                        ID: {String(watch.id).padStart(3, '0')}
+                    </div>
+                    {hasDetails && (
+                        <div className="flex items-center text-xs text-amber-500/70" aria-hidden="true">
+                            <span className="mr-1">Detalhes</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
