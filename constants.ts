@@ -304,5 +304,6 @@ export const WATCHES: Watch[] = [
     { id: 304, name: "Soberano V", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/3936xaJ.png", description: "A majestade do tempo clássico com o coração aberto para o futuro." },
     { id: 305, name: "Estratos Temporais", category: "Estruturais", imageUrl: "https://i.imgur.com/u6jOKYO.png", description: "As camadas do tempo, sobrepostas em uma arquitetura complexa." },
     { id: 306, name: "Biomorfose", category: "Vanguarda", imageUrl: "https://i.imgur.com/dLUTNt7.png", description: "O tempo como uma entidade orgânica, evoluindo a cada segundo." },
-    { id: 307, name: "Legado XXIV", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/LH1FSnx.png", description: "A harmonia perfeita entre a tradição atemporal e a complexidade moderna." }
+    { id: 307, name: "Legado XXIV", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/LH1FSnx.png", description: "A harmonia perfeita entre a tradição atemporal e a complexidade moderna." },
+    { id: 308, name: "Simbionte", category: "Estruturais", imageUrl: "https://i.imgur.com/DGLPmQY.png", description: "A fusão perfeita entre o orgânico e o mecânico, onde o tempo ganha vida.", material: "Biopolímero de Titânio e Cristal de Safira Curvo", dimensions: "46mm x 15mm", movement: "Calibre Simbiótico S-308" }
 ];
