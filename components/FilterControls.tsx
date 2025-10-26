@@ -44,10 +44,10 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                     <button
                         key={filter}
                         onClick={() => onFilterChange(filter)}
-                        className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                        className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 border outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
                             isActive 
-                            ? 'bg-amber-400 text-black shadow-md shadow-amber-400/20' 
-                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+                            ? 'bg-amber-400 border-amber-400 text-black shadow-md shadow-amber-400/20' 
+                            : 'bg-transparent border-gray-700 text-gray-400 hover:bg-gray-800 hover:border-gray-600 hover:text-white'
                         }`}
                     >
                         {label}
