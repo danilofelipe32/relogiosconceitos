@@ -282,5 +282,16 @@ export const WATCHES: Watch[] = [
     { id: 282, name: "Horizonte II", category: "Vanguarda", imageUrl: "https://i.imgur.com/Xq8J86U.png", description: "Expandindo os limites do que é possível em um pulso." },
     { id: 283, name: "Consulado", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/QwL94n6.png", description: "A autoridade do design atemporal, com um toque de complexidade." },
     { id: 284, name: "Mecanismo XV", category: "Estruturais", imageUrl: "https://i.imgur.com/Mt9nH4t.png", description: "A alma da máquina, em sua forma mais intrincada." },
-    { id: 285, name: "Ecos Temporais", category: "Vanguarda", imageUrl: "https://i.imgur.com/sN7SWxH.png", description: "O futuro sussurra em ecos de luz e sombra." }
+    { id: 285, name: "Ecos Temporais", category: "Vanguarda", imageUrl: "https://i.imgur.com/sN7SWxH.png", description: "O futuro sussurra em ecos de luz e sombra." },
+    { id: 286, name: "Singularidade XXIII", category: "Vanguarda", imageUrl: "https://i.imgur.com/HTcrOGb.png", description: "A convergência de realidades, onde o tempo se dobra sobre si mesmo." },
+    { id: 287, name: "Legado XXI", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/sGe19df.png", description: "A herança da relojoaria clássica, revelada através de uma nova perspectiva." },
+    { id: 288, name: "Mecanismo XVI", category: "Estruturais", imageUrl: "https://i.imgur.com/bqpSC4v.png", description: "A sinfonia da engenharia, onde cada engrenagem conta uma parte da história do tempo." },
+    { id: 289, name: "Nébula III", category: "Vanguarda", imageUrl: "https://i.imgur.com/xslFADb.png", description: "Uma janela para o cosmos, capturando a beleza caótica de uma nebulosa estelar." },
+    { id: 290, name: "Virtuoso X", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/O7ejkHa.png", description: "A maestria da relojoaria, exibida com uma elegância que transcende o tempo." },
+    { id: 291, name: "Quimera III", category: "Vanguarda", imageUrl: "https://i.imgur.com/x3k4VLe.png", description: "Uma fusão impossível de biologia e mecânica, dando vida a uma nova forma de medir o tempo." },
+    { id: 292, name: "Reator II", category: "Estruturais", imageUrl: "https://i.imgur.com/cfz7pQD.png", description: "O núcleo pulsante da inovação, onde a energia do tempo é liberada." },
+    { id: 293, name: "Soberano IV", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/cgUB0UP.png", description: "A majestade do design clássico, com a alma do mecanismo orgulhosamente exposta." },
+    { id: 294, name: "Ocular II", category: "Vanguarda", imageUrl: "https://i.imgur.com/BvVpe73.png", description: "O olho que tudo vê do tempo, observando o futuro a cada tique-taque." },
+    { id: 295, name: "Cidadela III", category: "Estruturais", imageUrl: "https://i.imgur.com/D2obpuy.png", description: "Uma fortaleza de precisão, com cada detalhe construído para resistir à prova do tempo." },
+    { id: 296, name: "Legado XXII", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/Y36wn6v.png", description: "A pureza do legado, onde a tradição se abre para revelar sua beleza interior." }
 ];
