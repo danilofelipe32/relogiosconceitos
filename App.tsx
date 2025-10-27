@@ -120,10 +120,14 @@ const App: React.FC = () => {
     }, []);
 
     const handleShare = useCallback(async (imageUrl: string) => {
+        const watch = watches.find(w => w.imageUrl === imageUrl);
+        const watchName = watch ? watch.name : 'relógio conceito';
+        const shareText = `Veja este incrível relógio conceito: ${watchName}!`;
+
         const shareData = {
-            title: 'Horologia Conceito',
-            text: 'Veja este incrível relógio conceito!',
-            url: window.location.href // Share the portfolio link instead of just the image
+            title: `Horologia Conceito - ${watchName}`,
+            text: shareText,
+            url: window.location.href,
         };
 
         if (navigator.share) {
@@ -134,16 +138,18 @@ const App: React.FC = () => {
             }
         } else {
             try {
-                await navigator.clipboard.writeText(imageUrl);
-                setNotificationMessage('Link da imagem copiado!');
+                await navigator.clipboard.writeText(window.location.href);
+                setNotificationMessage('Link do portfólio copiado!');
                 setShowNotification(true);
                 setTimeout(() => setShowNotification(false), 2000);
             } catch (err) {
                 console.error('Failed to copy link:', err);
-                alert('Não foi possível copiar o link.');
+                setNotificationMessage('Não foi possível copiar o link.');
+                setShowNotification(true);
+                setTimeout(() => setShowNotification(false), 2000);
             }
         }
-    }, []);
+    }, [watches]);
 
     return (
         <>

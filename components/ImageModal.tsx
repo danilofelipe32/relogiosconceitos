@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Tooltip from './Tooltip';
 
 interface ImageModalProps {
     imageUrl: string;
@@ -43,7 +44,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose, onShare }) =
                 onClick={(e) => e.stopPropagation()}
             >
                 {isLoading && (
-                    <div className="w-16 h-16 border-4 border-gray-600 border-t-amber-400 rounded-full animate-spin"></div>
+                    <div className="absolute w-16 h-16 border-4 border-gray-600 border-t-amber-400 rounded-full animate-spin"></div>
                 )}
                 <img
                     src={imageUrl}
@@ -52,24 +53,28 @@ const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose, onShare }) =
                 />
             </div>
              <div className="absolute top-4 right-4 flex gap-3">
-                <button 
-                    onClick={() => onShare(imageUrl)} 
-                    className="text-white hover:text-amber-400 transition p-3 bg-black/50 rounded-full" 
-                    aria-label="Partilhar Imagem"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8m-4-6l-4-4m0 0L8 6m4-4v12" />
-                    </svg>
-                </button>
-                <button 
-                    onClick={onClose} 
-                    className="text-white hover:text-amber-400 transition p-3 bg-black/50 rounded-full"
-                    aria-label="Fechar modal"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                <Tooltip text="Compartilhar">
+                    <button 
+                        onClick={() => onShare(imageUrl)} 
+                        className="text-white hover:text-amber-400 transition p-3 bg-black/50 rounded-full" 
+                        aria-label="Partilhar Imagem"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8m-4-6l-4-4m0 0L8 6m4-4v12" />
+                        </svg>
+                    </button>
+                </Tooltip>
+                <Tooltip text="Fechar (Esc)">
+                    <button 
+                        onClick={onClose} 
+                        className="text-white hover:text-amber-400 transition p-3 bg-black/50 rounded-full"
+                        aria-label="Fechar modal"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </Tooltip>
             </div>
             
         </div>
