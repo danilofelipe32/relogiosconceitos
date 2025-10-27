@@ -4,7 +4,7 @@ import Tooltip from './Tooltip';
 interface ImageModalProps {
     imageUrl: string;
     onClose: () => void;
-    onShare: (imageUrl: string) => void;
+    onShare: () => void;
 }
 
 const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose, onShare }) => {
@@ -55,7 +55,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose, onShare }) =
              <div className="absolute top-4 right-4 flex gap-3">
                 <Tooltip text="Compartilhar">
                     <button 
-                        onClick={() => onShare(imageUrl)} 
+                        onClick={onShare} 
                         className="text-white hover:text-amber-400 transition p-3 bg-black/50 rounded-full" 
                         aria-label="Partilhar Imagem"
                     >

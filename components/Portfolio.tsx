@@ -14,7 +14,7 @@ interface PortfolioProps {
     onSearchChange: (term: string) => void;
     onSuggestionClick: (suggestion: string) => void;
     onToggleFavorite: (id: number) => void;
-    onCardClick: (imageUrl: string) => void;
+    onCardClick: (id: number) => void;
 }
 
 const Portfolio: React.FC<PortfolioProps> = ({
@@ -55,7 +55,7 @@ const Portfolio: React.FC<PortfolioProps> = ({
                             watch={watch}
                             isFavorited={favorites.includes(watch.id)}
                             onToggleFavorite={onToggleFavorite}
-                            onImageClick={() => onCardClick(watch.imageUrl)}
+                            onImageClick={() => onCardClick(watch.id)}
                         />
                     ))}
                 </div>

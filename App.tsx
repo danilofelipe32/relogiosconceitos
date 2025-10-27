@@ -25,7 +25,7 @@ const App: React.FC = () => {
     const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
-    const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
+    const [modalWatchId, setModalWatchId] = useState<number | null>(null);
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState('');
     const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -66,6 +66,30 @@ const App: React.FC = () => {
             clearTimeout(handler);
         };
     }, [searchTerm]);
+    
+    useEffect(() => {
+        const handleHashChange = () => {
+            const hash = window.location.hash;
+            const match = hash.match(/^#\/watch\/(\d+)$/);
+            if (match) {
+                const watchId = parseInt(match[1], 10);
+                if (WATCHES.some(w => w.id === watchId)) {
+                    setModalWatchId(watchId);
+                } else {
+                    window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+                }
+            } else {
+                setModalWatchId(null);
+            }
+        };
+
+        window.addEventListener('hashchange', handleHashChange);
+        handleHashChange(); // Check hash on initial load
+
+        return () => {
+            window.removeEventListener('hashchange', handleHashChange);
+        };
+    }, []);
 
     useEffect(() => {
         const lowercasedSearchTerm = debouncedSearchTerm.toLowerCase();
@@ -119,15 +143,26 @@ const App: React.FC = () => {
         setSuggestions([]);
     }, []);
 
-    const handleShare = useCallback(async (imageUrl: string) => {
-        const watch = watches.find(w => w.imageUrl === imageUrl);
-        const watchName = watch ? watch.name : 'relógio conceito';
-        const shareText = `Veja este incrível relógio conceito: ${watchName}!`;
+    const handleCardClick = (id: number) => {
+        window.location.hash = `#/watch/${id}`;
+    };
+
+    const handleCloseModal = () => {
+        window.location.hash = '';
+    };
+
+    const handleShare = useCallback(async () => {
+        if (!modalWatchId) return;
+        const watch = watches.find(w => w.id === modalWatchId);
+        if (!watch) return;
+        
+        const watchName = watch.name;
+        const uniqueUrl = `${window.location.origin}${window.location.pathname}#/watch/${watch.id}`;
 
         const shareData = {
             title: `Horologia Conceito - ${watchName}`,
-            text: shareText,
-            url: window.location.href,
+            text: `Veja este incrível relógio conceito: ${watchName}!`,
+            url: uniqueUrl,
         };
 
         if (navigator.share) {
@@ -138,8 +173,8 @@ const App: React.FC = () => {
             }
         } else {
             try {
-                await navigator.clipboard.writeText(window.location.href);
-                setNotificationMessage('Link do portfólio copiado!');
+                await navigator.clipboard.writeText(uniqueUrl);
+                setNotificationMessage('Link do relógio copiado!');
                 setShowNotification(true);
                 setTimeout(() => setShowNotification(false), 2000);
             } catch (err) {
@@ -149,7 +184,9 @@ const App: React.FC = () => {
                 setTimeout(() => setShowNotification(false), 2000);
             }
         }
-    }, [watches]);
+    }, [modalWatchId, watches]);
+
+    const modalWatch = modalWatchId ? watches.find(w => w.id === modalWatchId) : null;
 
     return (
         <>
@@ -166,15 +203,15 @@ const App: React.FC = () => {
                     onSearchChange={setSearchTerm}
                     onSuggestionClick={handleSuggestionClick}
                     onToggleFavorite={toggleFavorite}
-                    onCardClick={setModalImageUrl}
+                    onCardClick={handleCardClick}
                 />
                 <About />
             </main>
             <Footer />
-            {modalImageUrl && (
+            {modalWatch && (
                 <ImageModal
-                    imageUrl={modalImageUrl}
-                    onClose={() => setModalImageUrl(null)}
+                    imageUrl={modalWatch.imageUrl}
+                    onClose={handleCloseModal}
                     onShare={handleShare}
                 />
             )}
