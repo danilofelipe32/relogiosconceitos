@@ -115,7 +115,7 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
     return (
         <div
             ref={cardRef}
-            className={`relative bg-gray-900 border border-gray-800 rounded-lg shadow-lg group transition-all duration-300 ease-in-out flex flex-col hover:border-amber-400/30 hover:shadow-2xl hover:shadow-amber-400/10 hover:-translate-y-2 hover:z-20 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            className={`relative bg-gray-900 border border-gray-800 rounded-lg shadow-lg group transition-all duration-300 ease-in-out flex flex-col hover:border-gray-300/30 hover:shadow-2xl hover:shadow-gray-300/10 hover:-translate-y-2 hover:z-20 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
             <div className="relative">
                 <div 
@@ -135,7 +135,7 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                      />
                     <div
                         style={magnifierStyle}
-                        className={`absolute pointer-events-none rounded-full border-2 border-amber-400 bg-no-repeat shadow-2xl backdrop-invert-[5%] transition-all duration-200 ease-out ${showMagnifier ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
+                        className={`absolute pointer-events-none rounded-full border-2 border-gray-300 bg-no-repeat shadow-2xl backdrop-invert-[5%] transition-all duration-200 ease-out ${showMagnifier ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
                         aria-hidden="true"
                     />
                 </div>
@@ -180,7 +180,7 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                 tabIndex={hasDetails ? 0 : -1}
                 aria-expanded={isExpanded}
             >
-                <p className="text-xs font-semibold text-amber-400 uppercase tracking-wider">{watch.category}</p>
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{watch.category}</p>
                 <h3 className="text-xl font-bold text-white mt-1">{watch.name}</h3>
                 <p className="text-sm text-gray-400 mt-2 flex-grow leading-relaxed">{watch.description}</p>
                 
@@ -199,7 +199,7 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                     <div className="text-xs font-mono text-gray-600">
                         ID: {String(watch.id).padStart(3, '0')}
                     </div>
-                    <div className={`flex items-center text-xs ${hasDetails ? 'text-amber-500/70' : 'text-gray-600'}`} aria-hidden="true">
+                    <div className={`flex items-center text-xs ${hasDetails ? 'text-gray-400/70' : 'text-gray-600'}`} aria-hidden="true">
                         <span className="mr-1">Detalhes</span>
                         <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

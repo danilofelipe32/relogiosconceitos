@@ -17,7 +17,7 @@ const SearchSuggestions: React.FC<SearchSuggestionsProps> = ({ suggestions, sear
             <span>
                 {parts.map((part, i) =>
                     part.toLowerCase() === highlight.toLowerCase() ? (
-                        <strong key={i} className="text-amber-400 font-bold">{part}</strong>
+                        <strong key={i} className="text-gray-300 font-bold">{part}</strong>
                     ) : (
                         part
                     )
@@ -33,7 +33,7 @@ const SearchSuggestions: React.FC<SearchSuggestionsProps> = ({ suggestions, sear
                     <li key={index}>
                         <button
                             onClick={() => onSuggestionClick(suggestion)}
-                            className="w-full text-left px-4 pl-12 py-3 text-white hover:bg-amber-400/10 transition-colors duration-150 focus:outline-none focus:bg-amber-400/20"
+                            className="w-full text-left px-4 pl-12 py-3 text-white hover:bg-gray-300/10 transition-colors duration-150 focus:outline-none focus:bg-gray-300/20"
                             role="option"
                             aria-selected="false"
                         >

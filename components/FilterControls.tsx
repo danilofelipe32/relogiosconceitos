@@ -44,9 +44,9 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                     <button
                         key={filter}
                         onClick={() => onFilterChange(filter)}
-                        className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 border outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                        className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 border outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
                             isActive 
-                            ? 'bg-amber-400 border-amber-400 text-black shadow-md shadow-amber-400/20' 
+                            ? 'bg-gray-300 border-gray-300 text-black shadow-md shadow-gray-300/20' 
                             : 'bg-transparent border-gray-700 text-gray-400 hover:bg-gray-800 hover:border-gray-600 hover:text-white'
                         }`}
                     >
@@ -96,7 +96,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                             </button>
                         </div>
                         <input
-                            className="w-full bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg py-3 pl-12 pr-36 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                            className="w-full bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg py-3 pl-12 pr-36 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-colors"
                             type="text"
                             placeholder="Pesquisar por nome ou descrição..."
                             value={searchTerm}
@@ -111,7 +111,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                             <div className="hidden md:block">
                                 <button
                                     onClick={() => setIsDesktopPanelVisible(prev => !prev)}
-                                    className={`p-1 rounded-md transition-colors ${isDesktopPanelVisible ? 'text-amber-400 bg-amber-400/10' : 'text-gray-400'} hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                    className={`p-1 rounded-md transition-colors ${isDesktopPanelVisible ? 'text-gray-300 bg-gray-300/10' : 'text-gray-400'} hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-400`}
                                     aria-label={desktopAriaLabel}
                                     aria-expanded={isDesktopPanelVisible}
                                 >
@@ -125,7 +125,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                             <div className="md:hidden">
                                 <button
                                     onClick={() => setIsMobileModalOpen(true)}
-                                    className={`p-1 rounded-md transition-colors text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-500`}
+                                    className={`p-1 rounded-md transition-colors text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-400`}
                                     aria-label="Mostrar filtros"
                                 >
                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -168,7 +168,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                     {renderFilterButtons()}
                     <button
                         onClick={handleCloseMobileModal}
-                        className="mt-6 w-full bg-amber-400 text-black font-bold py-2.5 px-4 rounded-lg transition-colors hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                        className="mt-6 w-full bg-gray-300 text-black font-bold py-2.5 px-4 rounded-lg transition-colors hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
                     >
                         Ver Resultados
                     </button>

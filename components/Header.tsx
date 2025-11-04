@@ -9,7 +9,7 @@ const Header: React.FC = () => {
                 <p className="mt-6 text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl" style={{ textShadow: '1px 1px 6px rgba(0,0,0,0.8)' }}>Explorando os limites do design e da engenharia. Bem-vindo ao futuro da medição do tempo.</p>
                 <a 
                     href="#portfolio" 
-                    className="mt-10 inline-block bg-transparent border-2 border-amber-400 text-amber-400 font-bold py-3 px-8 rounded-full hover:bg-amber-400 hover:text-black transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]"
+                    className="mt-10 inline-block bg-transparent border-2 border-gray-300 text-gray-300 font-bold py-3 px-8 rounded-full hover:bg-gray-300 hover:text-black transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(209,213,219,0.5)]"
                 >
                     Ver Coleção
                 </a>

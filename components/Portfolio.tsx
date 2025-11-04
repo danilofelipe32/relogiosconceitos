@@ -33,7 +33,7 @@ const Portfolio: React.FC<PortfolioProps> = ({
     return (
         <section id="portfolio" className="container mx-auto px-4 py-20 md:py-28">
             <div className="text-center mb-16">
-                <h2 className="font-serif text-4xl md:text-5xl font-bold text-amber-400">Coleção</h2>
+                <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-100">Coleção</h2>
                 <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">Cada peça é uma obra de arte conceitual, um vislumbre do futuro da horologia.</p>
             </div>
 

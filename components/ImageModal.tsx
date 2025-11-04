@@ -44,7 +44,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose, onShare }) =
                 onClick={(e) => e.stopPropagation()}
             >
                 {isLoading && (
-                    <div className="absolute w-16 h-16 border-4 border-gray-600 border-t-amber-400 rounded-full animate-spin"></div>
+                    <div className="absolute w-16 h-16 border-4 border-gray-600 border-t-gray-300 rounded-full animate-spin"></div>
                 )}
                 <img
                     src={imageUrl}
@@ -56,7 +56,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose, onShare }) =
                 <Tooltip text="Compartilhar">
                     <button 
                         onClick={onShare} 
-                        className="text-white hover:text-amber-400 transition p-3 bg-black/50 rounded-full" 
+                        className="text-white hover:text-gray-300 transition p-3 bg-black/50 rounded-full" 
                         aria-label="Partilhar Imagem"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -67,7 +67,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose, onShare }) =
                 <Tooltip text="Fechar (Esc)">
                     <button 
                         onClick={onClose} 
-                        className="text-white hover:text-amber-400 transition p-3 bg-black/50 rounded-full"
+                        className="text-white hover:text-gray-300 transition p-3 bg-black/50 rounded-full"
                         aria-label="Fechar modal"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
