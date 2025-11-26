@@ -1,3 +1,4 @@
+
 import type { Watch, WatchCategory } from './types';
 
 export const WATCH_CATEGORIES: WatchCategory[] = ["Vanguarda", "Clássicos Reinventados", "Estruturais"];
@@ -334,5 +335,10 @@ export const WATCHES: Watch[] = [
     { id: 335, name: "Relicário", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/tve8gpQ.png", description: "Guardando os momentos mais preciosos do tempo.", material: "Prata de Lei e Cristal de Rocha", dimensions: "40mm x 10mm", movement: "Movimento de Memória R-335" },
     { id: 336, name: "Colmeia Urbana", category: "Estruturais", imageUrl: "https://i.imgur.com/msveMMe.png", description: "A organização complexa da metrópole do tempo.", material: "Aço PVD e Mostrador Hexagonal", dimensions: "44mm x 13mm", movement: "Calibre Urbano C-336" },
     { id: 337, name: "Andarilho", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/Hin0RS0.png", description: "Para aquele que viaja através das eras com estilo.", material: "Aço Escovado e Lona Encerada", dimensions: "41mm x 11.5mm", movement: "Movimento do Viajante A-337" },
-    { id: 338, name: "Portal", category: "Vanguarda", imageUrl: "https://i.imgur.com/wwdmd1a.png", description: "Uma passagem para outra dimensão do tempo.", material: "Titânio e Cristal de Vácuo", dimensions: "43mm x 12.8mm", movement: "Calibre Dimensional P-338" }
+    { id: 338, name: "Portal", category: "Vanguarda", imageUrl: "https://i.imgur.com/wwdmd1a.png", description: "Uma passagem para outra dimensão do tempo.", material: "Titânio e Cristal de Vácuo", dimensions: "43mm x 12.8mm", movement: "Calibre Dimensional P-338" },
+    { id: 339, name: "Célere", category: "Vanguarda", imageUrl: "https://i.imgur.com/aMTun0E.png", description: "A evolução contínua da liderança em design.", material: "Titânio e Cerâmica", dimensions: "42mm x 12mm", movement: "Movimento Pioneiro V-339" },
+    { id: 340, name: "Meridiano", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/6yxjCly.png", description: "O tempo clássico, revisitado com modernidade.", material: "Aço Inoxidável e Couro", dimensions: "41mm x 11mm", movement: "Calibre Temporal C-340" },
+    { id: 341, name: "Viga", category: "Estruturais", imageUrl: "https://i.imgur.com/CPvlEmD.png", description: "A base sólida da engenharia relojoeira.", material: "Aço Reforçado e Carbono", dimensions: "45mm x 14mm", movement: "Movimento Estrutural S-341" },
+    { id: 342, name: "Pulso", category: "Vanguarda", imageUrl: "https://i.imgur.com/aE7ImYg.png", description: "Movimento perpétuo em uma nova trajetória.", material: "Aço Inoxidável 316L", dimensions: "43mm x 12.5mm", movement: "Movimento Orbital O-342" },
+    { id: 343, name: "Eixo", category: "Estruturais", imageUrl: "https://i.imgur.com/lzHlDlC.png", description: "A conexão definitiva entre forma e função.", material: "Fibra de Carbono e Titânio", dimensions: "46mm x 15mm", movement: "Esqueleto Estrutural N-343" }
 ];
