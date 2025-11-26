@@ -1,4 +1,5 @@
 
+
 import type { Watch, WatchCategory } from './types';
 
 export const WATCH_CATEGORIES: WatchCategory[] = ["Vanguarda", "Clássicos Reinventados", "Estruturais"];
@@ -340,5 +341,9 @@ export const WATCHES: Watch[] = [
     { id: 340, name: "Meridiano", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/6yxjCly.png", description: "O tempo clássico, revisitado com modernidade.", material: "Aço Inoxidável e Couro", dimensions: "41mm x 11mm", movement: "Calibre Temporal C-340" },
     { id: 341, name: "Viga", category: "Estruturais", imageUrl: "https://i.imgur.com/CPvlEmD.png", description: "A base sólida da engenharia relojoeira.", material: "Aço Reforçado e Carbono", dimensions: "45mm x 14mm", movement: "Movimento Estrutural S-341" },
     { id: 342, name: "Pulso", category: "Vanguarda", imageUrl: "https://i.imgur.com/aE7ImYg.png", description: "Movimento perpétuo em uma nova trajetória.", material: "Aço Inoxidável 316L", dimensions: "43mm x 12.5mm", movement: "Movimento Orbital O-342" },
-    { id: 343, name: "Eixo", category: "Estruturais", imageUrl: "https://i.imgur.com/lzHlDlC.png", description: "A conexão definitiva entre forma e função.", material: "Fibra de Carbono e Titânio", dimensions: "46mm x 15mm", movement: "Esqueleto Estrutural N-343" }
+    { id: 343, name: "Eixo", category: "Estruturais", imageUrl: "https://i.imgur.com/lzHlDlC.png", description: "A conexão definitiva entre forma e função.", material: "Fibra de Carbono e Titânio", dimensions: "46mm x 15mm", movement: "Esqueleto Estrutural N-343" },
+    { id: 344, name: "Luminar", category: "Vanguarda", imageUrl: "https://i.imgur.com/Mmwx7Ph.png", description: "A luz guiando o caminho através do tempo.", material: "Titânio Polido e Safira", dimensions: "42mm x 11.5mm", movement: "Calibre Luminoso L-344" },
+    { id: 345, name: "Sideral", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/uPVwbni.png", description: "Inspirado na profundidade do espaço sideral.", material: "Aço Azulado e Prata", dimensions: "41mm x 10mm", movement: "Movimento Sideral S-345" },
+    { id: 346, name: "Fusão", category: "Estruturais", imageUrl: "https://i.imgur.com/UPO9Ddl.png", description: "A união perfeita de materiais e mecânica.", material: "Carbono e Ouro Rosa", dimensions: "45mm x 14mm", movement: "Cronógrafo de Fusão F-346" },
+    { id: 347, name: "Magnitude", category: "Vanguarda", imageUrl: "https://i.imgur.com/rXIH6NY.png", description: "Uma presença imponente que define o momento.", material: "Cerâmica e Aço", dimensions: "44mm x 13mm", movement: "Calibre Magno M-347" }
 ];
