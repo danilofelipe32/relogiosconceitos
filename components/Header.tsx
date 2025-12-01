@@ -1,10 +1,19 @@
+
 import React from 'react';
 
 const Header: React.FC = () => {
     return (
-        <header className="main-header relative h-screen flex items-center justify-center text-white">
-            <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-            <div className="z-10 text-center p-4 max-w-4xl mx-auto flex flex-col items-center">
+        <header className="relative h-screen flex items-center justify-center text-white overflow-hidden">
+            <video
+                className="absolute inset-0 w-full h-full object-cover"
+                src="https://i.imgur.com/YF2Lh54.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-70 z-10"></div>
+            <div className="z-20 text-center p-4 max-w-4xl mx-auto flex flex-col items-center">
                 <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white" style={{ textShadow: '2px 2px 12px rgba(0,0,0,0.8)' }}>Horologia Conceito</h1>
                 <p className="mt-6 text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl" style={{ textShadow: '1px 1px 6px rgba(0,0,0,0.8)' }}>Explorando os limites do design e da engenharia. Bem-vindo ao futuro da medição do tempo.</p>
                 <a 
@@ -14,7 +23,7 @@ const Header: React.FC = () => {
                     Ver Coleção
                 </a>
             </div>
-            <div className="absolute bottom-10 animate-bounce">
+            <div className="absolute bottom-10 animate-bounce z-20">
                 <a href="#portfolio" aria-label="Scroll to portfolio">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white/50 hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
