@@ -385,5 +385,9 @@ export const WATCHES: Watch[] = [
     { id: 385, name: "Puro", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/NrBk9qg.png", description: "Minimalismo em sua forma mais elevada.", material: "Aço Inoxidável Polido", dimensions: "39mm x 9mm", movement: "Movimento Simples P-385" },
     { id: 386, name: "Engrenagem Mestra", category: "Estruturais", imageUrl: "https://i.imgur.com/gLGuaUa.png", description: "O coração pulsante da máquina.", material: "Aço e Latão Exposto", dimensions: "44mm x 13mm", movement: "Movimento Mecânico E-386" },
     { id: 387, name: "Silhueta", category: "Vanguarda", imageUrl: "https://i.imgur.com/uJhtTl2.png", description: "Sombras que marcam o tempo.", material: "Titânio DLC e Safira Fumê", dimensions: "42mm x 11mm", movement: "Calibre Sombrio S-387" },
-    { id: 388, name: "Herança Dourada", category: "Clássicos Reinventados", imageUrl: "https://i.imgur.com/vaJVnte.png", description: "O legado do ouro através das gerações.", material: "Ouro Amarelo 18k", dimensions: "41mm x 10.5mm", movement: "Automático Clássico H-388" }
+    { id: 388, name: "Herança Dourada", category: "Clássicos Reinventados", imageUrl: "https://imgur.com/vaJVnte", description: "O legado do ouro através das gerações.", material: "Ouro Amarelo 18k", dimensions: "41mm x 10.5mm", movement: "Automático Clássico H-388" },
+    { id: 389, name: "Magneto", category: "Vanguarda", imageUrl: "https://imgur.com/pB3hUfz", description: "Forças invisíveis moldando o tempo.", material: "Titânio Magnético e Safira", dimensions: "44mm x 13mm", movement: "Movimento Magnético M-389" },
+    { id: 390, name: "Catedral", category: "Estruturais", imageUrl: "https://imgur.com/lbsHG6G", description: "Uma homenagem à arquitetura gótica.", material: "Aço Envelhecido e Vitral", dimensions: "45mm x 14.5mm", movement: "Calibre Arquitetônico C-390" },
+    { id: 391, name: "Imperador", category: "Clássicos Reinventados", imageUrl: "https://imgur.com/ofSzBgy", description: "O domínio absoluto sobre o tempo.", material: "Ouro Imperial e Veludo", dimensions: "42mm x 11.5mm", movement: "Automático Soberano I-391" }
 ];
+
