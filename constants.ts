@@ -388,6 +388,8 @@ export const WATCHES: Watch[] = [
     { id: 388, name: "Herança Dourada", category: "Clássicos Reinventados", imageUrl: "https://imgur.com/vaJVnte", description: "O legado do ouro através das gerações.", material: "Ouro Amarelo 18k", dimensions: "41mm x 10.5mm", movement: "Automático Clássico H-388" },
     { id: 389, name: "Magneto", category: "Vanguarda", imageUrl: "https://imgur.com/pB3hUfz", description: "Forças invisíveis moldando o tempo.", material: "Titânio Magnético e Safira", dimensions: "44mm x 13mm", movement: "Movimento Magnético M-389" },
     { id: 390, name: "Catedral", category: "Estruturais", imageUrl: "https://imgur.com/lbsHG6G", description: "Uma homenagem à arquitetura gótica.", material: "Aço Envelhecido e Vitral", dimensions: "45mm x 14.5mm", movement: "Calibre Arquitetônico C-390" },
-    { id: 391, name: "Imperador", category: "Clássicos Reinventados", imageUrl: "https://imgur.com/ofSzBgy", description: "O domínio absoluto sobre o tempo.", material: "Ouro Imperial e Veludo", dimensions: "42mm x 11.5mm", movement: "Automático Soberano I-391" }
+    { id: 391, name: "Imperador", category: "Clássicos Reinventados", imageUrl: "https://imgur.com/ofSzBgy", description: "O domínio absoluto sobre o tempo.", material: "Ouro Imperial e Veludo", dimensions: "42mm x 11.5mm", movement: "Automático Soberano I-391" },
+    { id: 392, name: "Fluxo Magnético", category: "Vanguarda", imageUrl: "https://imgur.com/pB3hUfz", description: "O fluxo invisível que guia cada segundo.", material: "Titânio e Campo Magnético", dimensions: "44mm x 13mm", movement: "Movimento de Fluxo F-392" },
+    { id: 393, name: "Basílica", category: "Estruturais", imageUrl: "https://imgur.com/lbsHG6G", description: "Grandiosidade arquitetônica em escala reduzida.", material: "Aço, Bronze e Vidro", dimensions: "45mm x 14.5mm", movement: "Calibre Monumental B-393" },
+    { id: 394, name: "Czar", category: "Clássicos Reinventados", imageUrl: "https://imgur.com/ofSzBgy", description: "Opulência e poder em um design clássico.", material: "Ouro e Tecido Real", dimensions: "42mm x 11.5mm", movement: "Calibre Imperial C-394" }
 ];
-
