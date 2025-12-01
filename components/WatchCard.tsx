@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import type { Watch } from '../types';
 
@@ -15,6 +16,7 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
     const [isClicked, setIsClicked] = useState(false);
+    const [isExploding, setIsExploding] = useState(false);
     const [feedbackIcon, setFeedbackIcon] = useState<'added' | 'removed' | null>(null);
     const feedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -79,6 +81,11 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
         e.stopPropagation();
         setIsClicked(true);
         
+        if (!isFavorited) {
+            setIsExploding(true);
+            setTimeout(() => setIsExploding(false), 700);
+        }
+
         if (feedbackTimerRef.current) {
             clearTimeout(feedbackTimerRef.current);
         }
@@ -158,9 +165,12 @@ const WatchCard: React.FC<WatchCardProps> = ({ watch, isFavorited, onToggleFavor
                     </div>
                     <button
                         onClick={handleToggleFavorite}
-                        className={`p-2 bg-black/50 rounded-full transition-transform duration-300 ease-out hover:scale-110 ${isClicked ? 'scale-125' : ''}`}
+                        className={`relative p-2 bg-black/50 rounded-full transition-transform duration-300 ease-out hover:scale-110 ${isClicked ? 'scale-125' : ''}`}
                         aria-label={isFavorited ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                     >
+                        {isExploding && (
+                            <span className="absolute inset-0 rounded-full bg-red-500 opacity-75 animate-ping"></span>
+                        )}
                         <svg className={`w-6 h-6 transition-all duration-300 ${isFavorited ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-white'}`} viewBox="0 0 24 24" strokeWidth="1.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                         </svg>
