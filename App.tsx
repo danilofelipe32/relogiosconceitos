@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import Header from './components/Header';
 import Portfolio from './components/Portfolio';
@@ -129,11 +130,14 @@ const App: React.FC = () => {
         } else if (filter === 'favorites') {
             setShowOnlyFavorites(prev => !prev);
         } else { // It's a WatchCategory
+            const category = filter as WatchCategory;
             setActiveCategories(prev => {
-                const newCategories = prev.includes(filter as WatchCategory)
-                    ? prev.filter(cat => cat !== filter)
-                    : [...prev, filter];
-                return newCategories;
+                // Se a categoria clicada já estiver ativa, desmarque-a (volta para "Todos")
+                if (prev.includes(category)) {
+                    return [];
+                }
+                // Caso contrário, selecione APENAS esta categoria (substitui as outras)
+                return [category];
             });
         }
     };
