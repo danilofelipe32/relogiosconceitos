@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import type { FilterCategory, WatchCategory } from '../types';
 import { WATCH_CATEGORIES } from '../constants';
@@ -29,7 +30,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
     ];
 
     const renderFilterButtons = () => (
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
             {allFilterButtons.map(({ label, filter }) => {
                 let isActive = false;
                 if (filter === 'all') {
@@ -44,10 +45,10 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                     <button
                         key={filter}
                         onClick={() => onFilterChange(filter)}
-                        className={`py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 border outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                        className={`py-2 px-5 rounded-full text-xs font-medium uppercase tracking-wide transition-all duration-300 border ${
                             isActive 
-                            ? 'bg-gray-300 border-gray-300 text-black shadow-md shadow-gray-300/20' 
-                            : 'bg-transparent border-gray-700 text-gray-400 hover:bg-gray-800 hover:border-gray-600 hover:text-white'
+                            ? 'bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.2)]' 
+                            : 'bg-transparent border-white/10 text-gray-400 hover:border-white/30 hover:text-white hover:bg-white/5'
                         }`}
                     >
                         {label}
@@ -57,121 +58,104 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
         </div>
     );
 
-    const desktopAriaLabel = isDesktopPanelVisible ? "Ocultar filtros" : "Mostrar filtros";
-
     return (
         <>
-            <div className="sticky top-4 z-30 bg-black/50 backdrop-blur-lg p-4 rounded-xl border border-gray-800">
-                <div className="max-w-4xl mx-auto">
-                    <div className="relative">
-                         <div className="absolute inset-y-0 left-0 flex items-center z-10">
-                            <button
-                                onClick={() => onSearchChange('')}
-                                disabled={!searchTerm}
-                                className="p-3 text-gray-400 disabled:cursor-default enabled:hover:text-white transition-colors focus:outline-none"
-                                aria-label={searchTerm ? "Limpar busca" : "Ícone de busca"}
+            <div className="bg-gray-900/60 backdrop-blur-xl p-3 rounded-2xl border border-white/5 shadow-2xl transition-all duration-300">
+                <div className="flex items-center justify-between gap-4">
+                    
+                    {/* Search Bar */}
+                    <div className="relative flex-grow max-w-md group">
+                         <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                            <svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                className={`w-5 h-5 transition-colors duration-300 ${isSearchFocused || searchTerm ? 'text-white' : 'text-gray-500'}`} 
+                                fill="none" 
+                                viewBox="0 0 24 24" 
+                                stroke="currentColor"
                             >
-                                <div className="relative w-5 h-5" aria-hidden="true">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className={`absolute inset-0 w-full h-full transition-all duration-300 ease-in-out ${searchTerm ? 'opacity-0 scale-50 -rotate-90' : 'opacity-100 scale-100 rotate-0'}`}
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className={`absolute inset-0 w-full h-full transition-all duration-300 ease-in-out ${searchTerm ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 rotate-90'}`}
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth={2}
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </div>
-                            </button>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
                         </div>
                         <input
-                            className="w-full bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg py-3 pl-12 pr-36 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-colors"
+                            className="w-full bg-black/40 text-white placeholder-gray-600 border border-white/5 rounded-xl py-3 pl-12 pr-10 focus:outline-none focus:ring-1 focus:ring-white/20 focus:border-white/20 focus:bg-black/60 transition-all duration-300 text-sm font-light"
                             type="text"
-                            placeholder="Pesquisar por nome ou descrição..."
+                            placeholder="Buscar modelo..."
                             value={searchTerm}
                             onChange={(e) => onSearchChange(e.target.value)}
                             onFocus={() => setIsSearchFocused(true)}
                             onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                            aria-label="Pesquisar relógios"
                             autoComplete="off"
                         />
-                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
-                            {/* Desktop Button */}
-                            <div className="hidden md:block">
-                                <button
-                                    onClick={() => setIsDesktopPanelVisible(prev => !prev)}
-                                    className={`p-1 rounded-md transition-colors ${isDesktopPanelVisible ? 'text-gray-300 bg-gray-300/10' : 'text-gray-400'} hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-400`}
-                                    aria-label={desktopAriaLabel}
-                                    aria-expanded={isDesktopPanelVisible}
-                                >
-                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                                   </svg>
-                                </button>
-                            </div>
-
-                             {/* Mobile Button */}
-                            <div className="md:hidden">
-                                <button
-                                    onClick={() => setIsMobileModalOpen(true)}
-                                    className={`p-1 rounded-md transition-colors text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-400`}
-                                    aria-label="Mostrar filtros"
-                                >
-                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                                   </svg>
-                                </button>
-                            </div>
-                        </div>
+                        {searchTerm && (
+                            <button
+                                onClick={() => onSearchChange('')}
+                                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-white transition-colors"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        )}
 
                         {isSearchFocused && suggestions.length > 0 && (
-                            <SearchSuggestions
-                                suggestions={suggestions}
-                                searchTerm={searchTerm}
-                                onSuggestionClick={onSuggestionClick}
-                            />
+                            <div className="absolute top-full left-0 right-0 mt-2">
+                                <SearchSuggestions
+                                    suggestions={suggestions}
+                                    searchTerm={searchTerm}
+                                    onSuggestionClick={onSuggestionClick}
+                                />
+                            </div>
                         )}
                     </div>
-                    
-                    <div className={`hidden md:block mt-4 transition-all duration-300 ease-out overflow-hidden ${isDesktopPanelVisible ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`} aria-hidden={!isDesktopPanelVisible}>
-                        <div className="pt-2">
-                            {renderFilterButtons()}
-                        </div>
+
+                    {/* Filter Toggle / Display */}
+                    <div className="hidden lg:flex items-center">
+                        {renderFilterButtons()}
+                    </div>
+
+                    {/* Mobile/Tablet Filter Trigger */}
+                    <div className="lg:hidden">
+                        <button
+                            onClick={() => setIsMobileModalOpen(true)}
+                            className="p-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                            aria-label="Filtros"
+                        >
+                           <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                           </svg>
+                        </button>
                     </div>
                 </div>
             </div>
 
-            {/* Mobile Filter Modal */}
+            {/* Mobile/Tablet Filter Modal */}
             <div
-                className={`md:hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-end justify-center z-40 transition-opacity duration-300 ${isMobileModalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                onClick={handleCloseMobileModal}
-                role="dialog"
-                aria-modal="true"
-                aria-hidden={!isMobileModalOpen}
+                className={`lg:hidden fixed inset-0 z-50 flex items-end justify-center sm:items-center p-4 transition-all duration-300 ${isMobileModalOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
             >
+                <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" onClick={handleCloseMobileModal} />
+                
                 <div
-                    className={`bg-gray-900 rounded-t-xl p-6 w-full max-w-sm border-t border-gray-700 shadow-2xl transform transition-transform duration-300 ease-out ${isMobileModalOpen ? 'translate-y-0' : 'translate-y-full'}`}
-                    onClick={(e) => e.stopPropagation()}
+                    className={`relative bg-gray-900 rounded-2xl w-full max-w-md border border-gray-800 shadow-2xl transform transition-transform duration-300 ${isMobileModalOpen ? 'translate-y-0 scale-100' : 'translate-y-full sm:translate-y-0 sm:scale-95'}`}
                 >
-                    <h3 className="text-lg font-bold text-white text-center mb-6">Filtrar Coleção</h3>
-                    {renderFilterButtons()}
-                    <button
-                        onClick={handleCloseMobileModal}
-                        className="mt-6 w-full bg-gray-300 text-black font-bold py-2.5 px-4 rounded-lg transition-colors hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                    >
-                        Ver Resultados
-                    </button>
+                    <div className="p-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-serif text-white">Filtros</h3>
+                            <button onClick={handleCloseMobileModal} className="text-gray-500 hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="flex flex-wrap gap-2 justify-start">
+                            {renderFilterButtons()}
+                        </div>
+                        <button
+                            onClick={handleCloseMobileModal}
+                            className="mt-8 w-full bg-white text-black font-bold py-3.5 px-4 rounded-xl hover:bg-gray-200 transition-colors uppercase tracking-widest text-xs"
+                        >
+                            Aplicar
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
