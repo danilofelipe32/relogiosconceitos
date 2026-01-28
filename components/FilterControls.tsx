@@ -135,10 +135,11 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                 <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" onClick={handleCloseMobileModal} />
                 
                 <div
-                    className={`relative bg-gray-900 rounded-2xl w-full max-w-md border border-gray-800 shadow-2xl transform transition-transform duration-300 ${isMobileModalOpen ? 'translate-y-0 scale-100' : 'translate-y-full sm:translate-y-0 sm:scale-95'}`}
+                    className={`relative bg-gray-900 rounded-2xl w-full max-w-md border border-gray-800 shadow-2xl transform transition-transform duration-300 flex flex-col max-h-[85vh] ${isMobileModalOpen ? 'translate-y-0 scale-100' : 'translate-y-full sm:translate-y-0 sm:scale-95'}`}
                 >
-                    <div className="p-6">
-                        <div className="flex justify-between items-center mb-6">
+                    {/* Header */}
+                    <div className="p-6 border-b border-gray-800 shrink-0">
+                        <div className="flex justify-between items-center">
                             <h3 className="text-xl font-serif text-white">Filtros</h3>
                             <button onClick={handleCloseMobileModal} className="text-gray-500 hover:text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -146,12 +147,20 @@ const FilterControls: React.FC<FilterControlsProps> = ({ activeCategories, isFav
                                 </svg>
                             </button>
                         </div>
+                    </div>
+
+                    {/* Scrollable Content */}
+                    <div className="p-6 overflow-y-auto">
                         <div className="flex flex-wrap gap-2 justify-start">
                             {renderFilterButtons()}
                         </div>
+                    </div>
+
+                    {/* Sticky Footer */}
+                    <div className="p-6 border-t border-gray-800 shrink-0">
                         <button
                             onClick={handleCloseMobileModal}
-                            className="mt-8 w-full bg-white text-black font-bold py-3.5 px-4 rounded-xl hover:bg-gray-200 transition-colors uppercase tracking-widest text-xs"
+                            className="w-full bg-white text-black font-bold py-3.5 px-4 rounded-xl hover:bg-gray-200 transition-colors uppercase tracking-widest text-xs"
                         >
                             Aplicar
                         </button>
