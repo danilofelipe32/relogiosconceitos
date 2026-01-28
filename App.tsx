@@ -29,7 +29,7 @@ const App: React.FC = () => {
     const [modalWatchId, setModalWatchId] = useState<number | null>(null);
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState('');
-    const [suggestions, setSuggestions] = useState<string[]>([]);
+    const [suggestions, setSuggestions] = useState<Watch[]>([]);
 
 
     useEffect(() => {
@@ -54,11 +54,9 @@ const App: React.FC = () => {
             const lowercasedSearchTerm = searchTerm.toLowerCase();
             const matchingWatches = WATCHES
                 .filter(watch => watch.name.toLowerCase().includes(lowercasedSearchTerm))
-                .map(watch => watch.name);
+                .slice(0, 5); // Take first 5 matches directly as objects
             
-            const uniqueNames = [...new Set(matchingWatches)];
-
-            setSuggestions(uniqueNames.slice(0, 5));
+            setSuggestions(matchingWatches);
         } else {
             setSuggestions([]);
         }

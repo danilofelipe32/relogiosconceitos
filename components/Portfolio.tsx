@@ -10,7 +10,7 @@ interface PortfolioProps {
     activeCategories: WatchCategory[];
     isFavoritesActive: boolean;
     searchTerm: string;
-    suggestions: string[];
+    suggestions: Watch[];
     onFilterChange: (filter: FilterCategory) => void;
     onSearchChange: (term: string) => void;
     onSuggestionClick: (suggestion: string) => void;

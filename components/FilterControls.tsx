@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import type { FilterCategory, WatchCategory } from '../types';
+import type { FilterCategory, WatchCategory, Watch } from '../types';
 import { WATCH_CATEGORIES } from '../constants';
 import SearchSuggestions from './SearchSuggestions';
 
@@ -8,7 +8,7 @@ interface FilterControlsProps {
     activeCategories: WatchCategory[];
     isFavoritesActive: boolean;
     searchTerm: string;
-    suggestions: string[];
+    suggestions: Watch[];
     onFilterChange: (filter: FilterCategory) => void;
     onSearchChange: (term: string) => void;
     onSuggestionClick: (suggestion: string) => void;

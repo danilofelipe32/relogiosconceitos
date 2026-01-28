@@ -1,18 +1,36 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const Header: React.FC = () => {
-    const [offset, setOffset] = useState(0);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
+        let ticking = false;
+
         const handleScroll = () => {
-            // Atualiza o offset apenas enquanto o header estiver (ou quase estiver) visível para performance
-            if (window.scrollY <= window.innerHeight) {
-                setOffset(window.scrollY);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (videoRef.current) {
+                        const scrollY = window.scrollY;
+                        // Otimização: para de atualizar a transformação se o header não estiver mais visível
+                        // Multiplicador 1.1 dá uma margem de segurança para garantir transição suave
+                        if (scrollY <= window.innerHeight * 1.1) {
+                            // translateY positivo move o elemento para baixo relativo ao pai
+                            // Como o pai se move para cima com o scroll, isso faz o vídeo subir "mais devagar"
+                            // 0.5 = metade da velocidade do scroll
+                            videoRef.current.style.transform = `translateY(${scrollY * 0.5}px)`;
+                        }
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Garante que a posição esteja correta ao carregar (ex: refresh com scroll)
+        handleScroll();
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -22,16 +40,14 @@ const Header: React.FC = () => {
     return (
         <header className="relative h-screen flex items-center justify-center text-white overflow-hidden">
             <video
+                ref={videoRef}
                 className="absolute inset-0 w-full h-full object-cover"
                 src="https://i.imgur.com/YF2Lh54.mp4"
                 autoPlay
                 loop
                 muted
                 playsInline
-                style={{ 
-                    transform: `translateY(${offset * 0.5}px)`,
-                    willChange: 'transform'
-                }}
+                style={{ willChange: 'transform' }} // Dica para o navegador otimizar a renderização da camada
             />
             <div className="absolute inset-0 bg-black bg-opacity-70 z-10"></div>
             <div className="z-20 text-center p-4 max-w-4xl mx-auto flex flex-col items-center">
