@@ -1,7 +1,24 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Header: React.FC = () => {
+    const [offset, setOffset] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Atualiza o offset apenas enquanto o header estiver (ou quase estiver) visível para performance
+            if (window.scrollY <= window.innerHeight) {
+                setOffset(window.scrollY);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
         <header className="relative h-screen flex items-center justify-center text-white overflow-hidden">
             <video
@@ -11,6 +28,10 @@ const Header: React.FC = () => {
                 loop
                 muted
                 playsInline
+                style={{ 
+                    transform: `translateY(${offset * 0.5}px)`,
+                    willChange: 'transform'
+                }}
             />
             <div className="absolute inset-0 bg-black bg-opacity-70 z-10"></div>
             <div className="z-20 text-center p-4 max-w-4xl mx-auto flex flex-col items-center">
